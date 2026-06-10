@@ -1,7 +1,7 @@
 # Smart Lock & Environmental Monitor System
 
 基于STM32F407VET6的智能门锁与环控系统，集成了密码验证、环境监测、RTC实时时钟、步进电机&舵机控制、串口通信、蓝牙控制、红外遥控、OLED显示、Flash存储等功能。
-> - **迭代记录**：由之前手搓的基于STM32F103C8T6标准库的智能家居和智能仓储合并而来
+> - **迭代记录**：由之前手搓的基于STM32F103C8T6标准库的[智能家居](https://github.com/Nahida-Robin/Smart-Environment)和[智能仓储](https://github.com/Nahida-Robin/The-intelligent-storage-system-based-on-STM32)合并而来
 > - **开发记录**：详细开发步骤、踩坑复盘、调试经验，请查阅 [Doc/STAGE.md](Doc/STAGE.md)（开发步骤）和 [Doc/HOLE.md](Doc/HOLE.md)（踩坑记录）。
 > - **操作指南**：[Doc/STEP.md](Doc/STEP.md)：从零上手指南（硬件连接、软件配置、功能验证）
 
