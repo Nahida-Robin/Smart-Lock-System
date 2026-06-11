@@ -7,6 +7,8 @@ void Display_ShowLockErr(void);
 void Display_ShowIDLE(void);
 void Display_ShowTime(void);
 void Display_ShowDate(void);
+void Display_ShowSetTime(void);
+void Display_ShowSetDate(void);
 void Display_ShowRTC(void);
 void Display_ShowRTCSetInc(void);
 void Display_ShowRTCSet(void);

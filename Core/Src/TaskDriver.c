@@ -226,37 +226,37 @@ static void RTC_Increase(void)
 		case 1:
 			if(Year >= 99){Year = 0;}
 			else{Year++;}
-			Display_ShowDate();
+			Display_ShowSetDate();
 			break;
 		case 2:
 			if(Mon >= 12){Mon = 1;}
 			else{Mon++;}
-			Display_ShowDate();
+			Display_ShowSetDate();
 			break;
 		case 3:
 			if(Date >= 31){Date = 1;}//待匹配月份
 			else{Date++;}
-			Display_ShowDate();
+			Display_ShowSetDate();
 			break;
 		case 4:
 			if(Hour >= 23){Hour = 0;}
 			else{Hour++;}
-			Display_ShowTime();
+			Display_ShowSetTime();
 			break;
 		case 5:
 			if(Min >= 59){Min = 0;}
 			else{Min++;}
-			Display_ShowTime();
+			Display_ShowSetTime();
 			break;
 		case 6:
 			if(Sec >= 59){Sec = 0;}
 			else{Sec++;}
-			Display_ShowTime();
+			Display_ShowSetTime();
 			break;
 		case 7:
 			if(Week >= 7){Week = 1;}
 			else{Week++;}
-			Display_ShowDate();
+			Display_ShowSetDate();
 			break;
 	}
 }
@@ -273,37 +273,37 @@ static void RTC_Decrease(void)
 		case 1:
 			if(Year <= 0){Year = 99;}
 			else{Year--;}
-			Display_ShowDate();
+			Display_ShowSetDate();
 			break;
 		case 2:
 			if(Mon <= 1){Mon = 12;}
 			else{Mon--;}
-			Display_ShowDate();
+			Display_ShowSetDate();
 			break;
 		case 3:
 			if(Date <= 1){Date = 31;}//待匹配月份
 			else{Date--;}
-			Display_ShowDate();
+			Display_ShowSetDate();
 			break;
 		case 4:
 			if(Hour <= 0){Hour = 23;}
 			else{Hour--;}
-			Display_ShowTime();
+			Display_ShowSetTime();
 			break;
 		case 5:
 			if(Min <= 0){Min = 59;}
 			else{Min--;}
-			Display_ShowTime();
+			Display_ShowSetTime();
 			break;
 		case 6:
 			if(Sec <= 0){Sec = 59;}
 			else{Sec--;}
-			Display_ShowTime();
+			Display_ShowSetTime();
 			break;
 		case 7:
 			if(Week <= 1){Week = 7;}
 			else{Week--;}
-			Display_ShowDate();
+			Display_ShowSetDate();
 			break;
 	}
 }
@@ -619,7 +619,7 @@ static void RTC_Task(void)
 			Display_ShowIDLE();
 			break;
 		case 12:
-			if(RTCSet_Mode == 0){Display_ShowRTCSetInc();}
+			Display_ShowRTCSetInc();
 			RTCSet_Mode++;
 			if(RTCSet_Mode >= 8){RTCSet_Mode = 1;}
 			Display_ShowRTCSet();

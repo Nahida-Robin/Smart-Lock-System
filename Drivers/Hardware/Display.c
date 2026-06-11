@@ -137,6 +137,21 @@ void Display_ShowDate(void)
 	OLED_ShowNum(1, 15, Week, 2);
 }
 
+void Display_ShowSetTime(void)
+{
+	OLED_ShowNum(2, 1, Hour, 2);
+	OLED_ShowNum(2, 4, Min, 2);
+	OLED_ShowNum(2, 7, Sec, 2);
+}
+
+void Display_ShowSetDate(void)
+{
+	OLED_ShowNum(1, 3, Year, 2);
+	OLED_ShowNum(1, 6, Mon, 2);
+	OLED_ShowNum(1, 9, Date, 2); 
+	OLED_ShowNum(1, 15, Week, 2);
+}
+
 /**
   *@brief Õ®π˝OLEDœ‘ æRTCΩÈ…‹
   *@param NULL
@@ -159,9 +174,9 @@ void Display_ShowRTC(void)
 void Display_ShowRTCSetInc(void)
 {
 	OLED_Clear();
-	OLED_ShowString(1, 1, "NowChange:");
-	OLED_ShowString(2, 1, "20  -  -  ");
-	OLED_ShowString(3, 1, "  :  :   Week:");
+	OLED_ShowString(4, 1, "NowChange:");
+	OLED_ShowString(1, 1, "20  -  -   Wk:");
+	OLED_ShowString(2, 1, "  :  :   ");
 	Display_ShowTime();
 	Display_ShowDate();
 }
@@ -176,25 +191,25 @@ void Display_ShowRTCSet(void)
 	switch(RTCSet_Mode)
 	{
 		case 1:
-			OLED_ShowString(1, 11, "Year");
+			OLED_ShowString(4, 11, "Year");
 			break;
 		case 2:
-			OLED_ShowString(1, 11, "Mon ");
+			OLED_ShowString(4, 11, "Mon ");
 			break;
 		case 3:
-			OLED_ShowString(1, 11, "Date");
+			OLED_ShowString(4, 11, "Date");
 			break;
 		case 4:
-			OLED_ShowString(1, 11, "Hour");
+			OLED_ShowString(4, 11, "Hour");
 			break;
 		case 5:
-			OLED_ShowString(1, 11, "Min ");
+			OLED_ShowString(4, 11, "Min ");
 			break;
 		case 6:
-			OLED_ShowString(1, 11, "Sec ");
+			OLED_ShowString(4, 11, "Sec ");
 			break;
 		case 7:
-			OLED_ShowString(1, 11, "Week");
+			OLED_ShowString(4, 11, "Week");
 			break;
 	}	
 }
