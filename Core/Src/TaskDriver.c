@@ -461,7 +461,7 @@ static void OPEN_Task()
 		case 16:
 //			Lock_Close();
 		  State = STATE_IDLE;
-		  Display_ShowMainMenu();
+		  Display_ShowIDLE();
 			break;
 	}
 }
