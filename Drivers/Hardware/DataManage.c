@@ -1,6 +1,6 @@
 /** 
  * @file Datamanage.c
- * @brief ͳһ�����ݹ�����
+ * @brief 数据管理，存储和读取
  * @author Nahida
  * @date 2026.6.5
  */
@@ -30,7 +30,7 @@ volatile uint16_t PWMemory_Index = 0;
 volatile uint16_t TMMemory_Index = 0;
 
 /**
-  *@brief ����������������
+  *@brief 擦除芯片，初始化数据
   *@param NULL
   *@retval NULL
   */
@@ -44,17 +44,18 @@ void Data_Erase(void)
 }
 
 /**
-  *@brief ��ȡ������������������
+  *@brief  读取数据到内存，判断是否第一次写入，若是则初始化数据，否则读取数据到内存
   *@param NULL
   *@retval NULL
   */
 void Data_Read(void)
 {
-	Flash_Read(Flash_IsWrite, FLASH_WR_ADDR, 1);
-	if(Flash_IsWrite[0] == 0xA5)
+	Flash_Read(Flash_IsWrite, FLASH_WR_ADDR, 1);//先读
+	if(Flash_IsWrite[0] == 0xA5)//用0xA5作写入标志
 	{
 		uint8_t Len[6] = {0};
 		Flash_Read(Len, FLASH_LEN_ADDR, 6);
+		//读取各项数据长度，方便后续读取各项数据
 		UWMemory_Index = (Len[0] << 8) | Len[1];
 		PWMemory_Index = (Len[2] << 8) | Len[3];
 		TMMemory_Index = (Len[4] << 8) | Len[5];
@@ -74,6 +75,7 @@ void Data_Read(void)
 	}
 	else
 	{
+		//写标志，下次读到就不会走else了。直接读取数据
 		uint8_t Flash_WriteYes[1];
 		Flash_WriteYes[0] = 0xA5;
 		Flash_Write(Flash_WriteYes, FLASH_WR_ADDR, 1);
@@ -83,7 +85,7 @@ void Data_Read(void)
 }
 
 /**
-  *@brief �������ݵ���Ӧ������
+  *@brief 将内存中的数据写入到Flash中，更新数据长度
   *@param NULL
   *@retval NULL
   */

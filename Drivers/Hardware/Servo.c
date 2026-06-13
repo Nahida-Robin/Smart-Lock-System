@@ -1,6 +1,6 @@
-/** 
+/**
  * @file Servo.c
- * @brief ¶æ»ú¿ØÖÆ
+ * @brief èˆµæœºæ§åˆ¶
  * @author Nahida
  * @date 2026.5.30
  */
@@ -11,7 +11,7 @@
 extern TIM_HandleTypeDef htim4;
 
 /**
-  *@brief ¶æ»ú¿ØÖÆ³õÊ¼»¯ 
+  *@brief èˆµæœºæ§åˆ¶åˆå§‹åŒ–
   *@param NULL
   *@retval NULL
   */
@@ -21,8 +21,8 @@ void Servo_Init(void)
 }
 
 /**
-  *@brief ¶æ»ú¸ù¾İ½Ç¶ÈÓ³ÉäÕ¼¿Õ±È
-  *@param angle ÒªÉèÖÃµÄ½Ç¶È
+  *@brief èˆµæœºæ ¹æ®è§’åº¦æ˜ å°„å ç©ºæ¯”
+  *@param angle è¦è®¾ç½®çš„è§’åº¦
   *@retval NULL
   */
 void Servo_SetAngle(uint8_t angle)
@@ -31,4 +31,3 @@ void Servo_SetAngle(uint8_t angle)
 	uint16_t Compare = angle * 2000 / 180 + 500;
 	__HAL_TIM_SetCompare(&htim4, SERVO_CHANNEL, Compare);
 }
-

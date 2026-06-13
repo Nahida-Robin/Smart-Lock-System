@@ -1,6 +1,6 @@
 /** 
  * @file TaskDriver.c
- * @brief Çı¶¯²ã£¬µ÷ÓÃ¸÷¸ö¹¦ÄÜº¯Êı ËùÓĞUI½çÃæ¾ù¿É°´16·µ»ØÉÏÒ»¼¶
+ * @brief ä»»åŠ¡è°ƒåº¦
  * @author Nahida
  * @date 2026.5.25
  */
@@ -50,8 +50,6 @@ uint8_t RTCSet_Mode = 0;
 uint8_t IR_LightState = 0;
 uint16_t IR_LightTime = 0;
 
-
-
 typedef enum{
 	STATE_IDLE = 0,
 	STATE_MENU,
@@ -67,7 +65,7 @@ typedef enum{
 State_t State = STATE_IDLE;
 
 /**
-  *@brief ÈÎÎñÇı¶¯³õÊ¼»¯£¬³õÊ¼»¯¸÷¹¦ÄÜ
+  *@brief æ‰€æœ‰ä»»åŠ¡åˆå§‹åŒ–
   *@param NULL
   *@retval NULL
   */
@@ -87,7 +85,7 @@ void TaskDriver_Init()
 }
 
 /**
-  *@brief ¿ªËø²¢¼ÇÂ¼³É¹¦´ÎÊı
+  *@brief å¼€é”å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -99,7 +97,7 @@ void Lock_Open(void)
 }
 
 /**
-  *@brief ¹ØË÷²¢Çå³ı¿ªËø×´Ì¬±êÖ¾Î»
+  *@brief å…³é”å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -111,7 +109,7 @@ void Lock_Close(void)
 
 
 /**
-  *@brief ¼ì²â´íÎó´ÎÊı
+  *@brief é”™è¯¯æ£€æŸ¥å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -129,7 +127,7 @@ static void Err_Check(void)
 }
 
 /**
-  *@brief ¿ØÖÆÊıÖµÔö¼Ó
+  *@brief å¢åŠ æ§åˆ¶æ•°å€¼
   *@param NULL
   *@retval NULL
   */
@@ -172,7 +170,7 @@ static void Control_Increase(void)
 }
 
 /**
-  *@brief ¿ØÖÆÊıÖµ¼õÉÙ
+  *@brief å‡å°‘æ§åˆ¶æ•°å€¼
   *@param NULL
   *@retval NULL
   */
@@ -215,7 +213,7 @@ static void Control_Decrease(void)
 }
 
 /**
-  *@brief ¿ØÖÆÊıÖµÔö¼Ó
+  *@brief RTCå¢åŠ æ•°å€¼
   *@param NULL
   *@retval NULL
   */
@@ -234,7 +232,7 @@ static void RTC_Increase(void)
 			Display_ShowSetDate();
 			break;
 		case 3:
-			if(Date >= 31){Date = 1;}//´ıÆ¥ÅäÔÂ·İ
+			if(Date >= 31){Date = 1;}//è‡ªåŠ¨åŒ¹é…æœˆä»½
 			else{Date++;}
 			Display_ShowSetDate();
 			break;
@@ -262,7 +260,7 @@ static void RTC_Increase(void)
 }
 
 /**
-  *@brief ¿ØÖÆÊıÖµ¼õÉÙ
+  *@brief RTCå‡å°‘æ•°å€¼
   *@param NULL
   *@retval NULL
   */
@@ -281,7 +279,7 @@ static void RTC_Decrease(void)
 			Display_ShowSetDate();
 			break;
 		case 3:
-			if(Date <= 1){Date = 31;}//´ıÆ¥ÅäÔÂ·İ
+			if(Date <= 1){Date = 31;}//è‡ªåŠ¨åŒ¹é…æœˆä»½
 			else{Date--;}
 			Display_ShowSetDate();
 			break;
@@ -309,7 +307,7 @@ static void RTC_Decrease(void)
 }
 
 /**
-  *@brief ºìÍâµãµÆÂß¼­
+  *@brief çº¢å¤–ç¯æ§åˆ¶å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -319,7 +317,7 @@ static void IR_LightControl(void)
 	{
 		PWMLED_SetBright(50);
 		IR_LightState = 1;
-		IR_LightTime = IR_LIGHTHOLD;
+		IR_LightTime = IR_LIGHTHOLD;//å›ºå®šå¾ªç¯æ¬¡æ•°å»¶æ—¶
 	}
 	else if(IR_LightTime)
 	{
@@ -333,7 +331,7 @@ static void IR_LightControl(void)
 }
 
 /**
-  *@brief ¿ÕÏĞÈÎÎñ ÏÔÊ¾µ±Ç°Ê±¼ä µÈ´ıÃÜÂëÊäÈë
+  *@brief ç©ºé—²çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -344,11 +342,11 @@ static void IDLE_Task(void)
 	uint8_t Key = Matrix_GetNum();
 	switch(Key)
 	{
-		case 11:
+		case 11://æŒ‰11è¿›å…¥å¯†ç éªŒè¯çŠ¶æ€
 			State = STATE_VERTIFY;
 			Display_InputInt();
 			return;			
-		case 12:
+		case 12://æŒ‰12è¿›å…¥èœå•çŠ¶æ€ å±•ç¤ºç³»ç»Ÿå„é¡¹çŠ¶æ€
 			State = STATE_MENU;
 			Display_ShowMainMenu();
 			return;			
@@ -356,7 +354,7 @@ static void IDLE_Task(void)
 }
 
 /**
-  *@brief ²Ëµ¥ÈÎÎñº¯Êı Ë¢ĞÂ¸÷¸öÊı¾İ ÏÔÊ¾µ±Ç°²ÎÊı
+  *@brief èœå•çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -372,11 +370,11 @@ static void MENU_Task(void)
 	
 	switch(Key)
 	{
-		case 15:
+		case 15://æŒ‰15è¿›å…¥RTCè®¾ç½®çŠ¶æ€
 			State = STATE_RTC;
 			Display_ShowRTC();
 			return;
-		case 16:
+		case 16://æŒ‰16è¿”å›ç©ºé—²çŠ¶æ€
 			State = STATE_IDLE;
 			Display_ShowIDLE();
 			return;
@@ -384,43 +382,43 @@ static void MENU_Task(void)
 }
 
 /**
-  *@brief ÃÜÂëÑéÖ¤º¯Êı µ÷ÓÃpassword½Ó¿Ú °´·µ»ØÖµ½øĞĞ²»Í¬´¦Àí
+  *@brief éªŒè¯çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
 static void VERTIFY_Task(void)
 {
-	int8_t Result = Password_Vertify();
+	int8_t Result = Password_Vertify();//æŠŠéªŒè¯ä»»åŠ¡äº¤ç»™Passwordæ¨¡å—
 	
 	switch(Result)
 	{
-		case 1:
+		case 1://è¿”å›1è¯´æ˜å•æ­¥æˆåŠŸï¼Œå®æ—¶æ›´æ–°è¾“å…¥çš„å¯†ç 
 			Display_ShowInput();
 			break;
-		case 2:
+		case 2://è¿”å›2è¯´æ˜éªŒè¯æˆåŠŸï¼Œè¿›å…¥å¼€é”çŠ¶æ€ï¼Œå¹¶ä¿å­˜æ•°æ®
 //			Lock_Open();
 		  Display_ShowOK();
 			Data_Save();
 		  State = STATE_OPEN;
 		  Display_ShowOpen();
 		  return;
-		case -1:
+		case -1://è¿”å›-1è¯´æ˜é•¿åº¦é”™è¯¯
 			Display_ShowLenErr();
 			Data_Save();
 		  Display_InputInt();
 			break;
-		case -2:
+		case -2://è¿”å›-2è¯´æ˜å¯†ç é”™è¯¯
 			Err_Check();
 		  Display_ShowPwdErr();
 			Data_Save();
 		  Display_InputInt();
 			break;
-		case -3:
+		case -3://è¿”å›-3è¯´æ˜ä¿å­˜é”™è¯¯
 			Display_ShowMemErr();
 			Data_Save();
 		  Display_InputInt();
 			break;
-		case 6:
+		case 6://è¿”å›6è¿”å›ä¸Šä¸€çº§èœå•
 			State = STATE_IDLE;
 			Display_ShowIDLE();
 			break;
@@ -428,7 +426,7 @@ static void VERTIFY_Task(void)
 }
 
 /**
-  *@brief ¿ªËø×´Ì¬º¯Êı µÈ´ı°´¼ü°´ÏÂ ¿ØÖÆãĞÖµ ½øÈë¿ÕÏĞ ¸ü¸ÄÃÜÂë ²é¿´ÀúÊ·¼ÇÂ¼
+  *@brief å¼€é”çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -438,19 +436,19 @@ static void OPEN_Task()
 	
 	switch(Key)
 	{
-		case 12:
+		case 12://æŒ‰12è¿›å…¥æ§åˆ¶çŠ¶æ€
 			State = STATE_CONT;
 		  Display_ShowControl();
 			break;
-		case 13:
+		case 13://æŒ‰13è¿›å…¥å¯†ç é€‰æ‹©çŠ¶æ€
 			State = STATE_SEL;
 		  Display_SelInt();
 			break;
-		case 14:
+		case 14://æŒ‰14è¿›å…¥ä¿®æ”¹å¯†ç çŠ¶æ€
 			State = STATE_CHAPWD;
 		  Display_ChaInt();
 			break;
-		case 15:
+		case 15://æŒ‰15è¿›å…¥æŸ¥çœ‹è®°å½•çŠ¶æ€ï¼Œå¹¶åˆå§‹åŒ–æŸ¥çœ‹å„é¡¹å‚æ•°
 			Read_Flag = 0;
 			View_Flag = 0;
 			View_Index = 1;
@@ -458,7 +456,7 @@ static void OPEN_Task()
 			Data_Read();
 		  Display_ViewInt();
 			break;
-		case 16:
+		case 16://æŒ‰16è¿”å›ç©ºé—²çŠ¶æ€
 //			Lock_Close();
 		  State = STATE_IDLE;
 		  Display_ShowIDLE();
@@ -467,30 +465,30 @@ static void OPEN_Task()
 }
 
 /**
-  *@brief ¸ü¸ÄÃÜÂëº¯Êı µ÷ÓÃpassword½Ó¿Ú ¸ù¾İ·µ»ØÖµÅĞ¶Ï¸ü¸Ä³É¹¦Óë·ñ
+  *@brief ä¿®æ”¹å¯†ç çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
 static void CHAPWD_Task()
 {
-	int8_t Result = Password_Change();
+	int8_t Result = Password_Change();//æŠŠä¿®æ”¹å¯†ç ä»»åŠ¡äº¤ç»™Passwordæ¨¡å—
 	
 	switch(Result)
 	{
-		case 1:
+		case 1://è¿”å›1è¯´æ˜å•æ­¥æˆåŠŸï¼Œå®æ—¶æ›´æ–°è¾“å…¥çš„å¯†ç 
 			Display_ShowChaPwd();
 		  return;
-		case 5:
+		case 5://è¿”å›5è¯´æ˜ä¿®æ”¹æˆåŠŸ
 			Display_ShowChaOK();
 		  State = STATE_OPEN;
 		  Display_ShowOpen();
 			break;
-		case -1:
+		case -1://è¿”å›-1è¯´æ˜é•¿åº¦é”™è¯¯
 			Display_ShowChaErr();
 		  State = STATE_OPEN;
 		  Display_ShowOpen();
 			break;
-		case 6:
+		case 6://è¿”å›6è¿”å›ä¸Šä¸€çº§èœå•
 			State = STATE_OPEN;
 		  Display_ShowOpen();
 			break;
@@ -498,18 +496,18 @@ static void CHAPWD_Task()
 }
 
 /**
-  *@brief ²é¿´ÀúÊ·¼ÇÂ¼º¯Êı ÏÔÊ¾ÀúÊ·ÃÜÂëÊäÈëºÍÊ±¼ä
+  *@brief æŸ¥çœ‹è®°å½•çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
 static void VIEW_Task()
 {
-	int8_t Result = Display_ReadView();
-	Display_ShowHistory();
-	uint8_t Key = Matrix_GetNum();
+	int8_t Result = Display_ReadView();//æŠŠè¯»å–è®°å½•ä»»åŠ¡äº¤ç»™Displayæ¨¡å—
+	Display_ShowHistory();//å®æ—¶æ›´æ–°æ˜¾ç¤ºè®°å½•
+	uint8_t Key = Matrix_GetNum();//ç„¶åè¯»å–æŒ‰é”®è·å¾—ä¸‹ä¸€æ­¥æ“ä½œ
 	switch(Key)
 	{
-		case 11:
+		case 11://æŒ‰11ä¸‹ä¸€é¡µ
 			if(View_Pages >= 1 && View_Index < View_Pages)
 			{
 				View_Index++;
@@ -517,7 +515,7 @@ static void VIEW_Task()
 				Display_ShowHistory();
 			}
 			break;
-		case 12:
+		case 12://æŒ‰12ä¸Šä¸€é¡µ
 			if(View_Pages >= 1 && View_Index > 1)
 			{
 				View_Index--;
@@ -525,7 +523,7 @@ static void VIEW_Task()
 				Display_ShowHistory();
 			}
 			break;
-		case 14:
+		case 14://æŒ‰14æ¸…é™¤è®°å½•
 			Read_Flag = 0;
 			View_Flag = 0;
 			View_Index = 1;
@@ -533,7 +531,7 @@ static void VIEW_Task()
 			State = STATE_OPEN;
 		  Display_ShowOpen();
 			break;
-		case 16:
+		case 16://æŒ‰16è¿”å›ä¸Šä¸€çº§
 			Read_Flag = 0;
 			View_Flag = 0;
 			View_Index = 1;
@@ -544,27 +542,27 @@ static void VIEW_Task()
 }
 
 /**
-  *@brief ÃÜÂëÑ¡Ôñº¯Êı
+  *@brief  å¯†ç é€‰æ‹©çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
 static void PWSEL_Task(void)
 {
-	int8_t Result = Password_Select();
+	int8_t Result = Password_Select();//æŠŠå¯†ç é€‰æ‹©ä»»åŠ¡äº¤ç»™Passwordæ¨¡å—
 	
 	switch(Result)
 	{
-		case 1:
+		case 1://è¿”å›1å•æ­¥æˆåŠŸï¼Œç»§ç»­ç­‰å¾…
 			Display_Showsel();
 			break;
-		case 7:
+		case 7://è¿”å›7è¯´æ˜é€‰æ‹©æˆåŠŸï¼Œè¿”å›å¼€é”çŠ¶æ€
 			State = STATE_OPEN;
 		  Display_ShowOpen();
 			break;
-		case 8:
+		case 8://è¿”å›8å°±é‡æ–°é€‰æ‹©
 			Display_SelInt();
 		  return;
-		case 6:
+		case 6://è¿”å›6è¿”å›ä¸Šä¸€çº§èœå•
 			State = STATE_OPEN;	
 		  Display_ShowOpen();
 			break;
@@ -572,7 +570,7 @@ static void PWSEL_Task(void)
 }
 
 /**
-  *@brief ¿ØÖÆÈÎÎñ Ä£Ê½ÇĞ»» ÊıÖµÔö¼Ó ÊıÖµ¼õÉÙ ·µ»ØÉÏÒ»¼¶
+  *@brief æ§åˆ¶çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -582,18 +580,18 @@ static void CONT_Task(void)
 	
 	switch(Key)
 	{
-		case 12:
+		case 12://æŒ‰12åˆ‡æ¢æ§åˆ¶å¯¹è±¡(æ¨¡å¼)
 			Control_Mode++;
 			if(Control_Mode >= 7) {Control_Mode = 1;}
 			Display_ShowSet();
 			break;
-		case 13:
+		case 13://æŒ‰13å¢åŠ æ•°å€¼
 			Control_Increase();
 			break;
-		case 14:
+		case 14://æŒ‰14å‡å°‘æ•°å€¼
 			Control_Decrease();
 			break;
-		case 16:
+		case 16://æŒ‰16è¿”å›ä¸Šä¸€çº§èœå•
 			State = STATE_OPEN;
 			Control_Mode = 0;
 		  Display_ShowOpen();
@@ -602,7 +600,7 @@ static void CONT_Task(void)
 }
 
 /**
-  *@brief RTCÉèÖÃº¯Êı
+  *@brief RTCè®¾ç½®çŠ¶æ€ä»»åŠ¡å‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -612,25 +610,25 @@ static void RTC_Task(void)
 	
 	switch(Key)
 	{
-		case 11:
+		case 11://æŒ‰11åº”ç”¨è®¾ç½®å¹¶è¿”å›ä¸Šä¸€çº§èœå•
 			RTC_SetTime(Hour, Min, Sec);
 			RTC_SetDate(Year, Mon, Date, Week);
 			State = STATE_IDLE;
 			Display_ShowIDLE();
 			break;
-		case 12:
+		case 12://æŒ‰12åˆ‡æ¢è®¾ç½®å¯¹è±¡(æ¨¡å¼)
 			Display_ShowRTCSetInc();
 			RTCSet_Mode++;
-			if(RTCSet_Mode >= 8){RTCSet_Mode = 1;}
+			if(RTCSet_Mode >= 8){RTCSet_Mode = 1;}//è¶Šç•Œä¿æŠ¤
 			Display_ShowRTCSet();
 			break;
-		case 13:
+		case 13://æŒ‰13å¢åŠ æ•°å€¼
 			RTC_Increase();
 			break;
-		case 14:
+		case 14://æŒ‰14å‡å°‘æ•°å€¼
 			RTC_Decrease();
 			break;
-		case 16:
+		case 16://æŒ‰16è¿”å›ä¸Šä¸€çº§èœå•
 			State = STATE_MENU;
 		  RTCSet_Mode = 0;
 			Display_ShowMainMenu();
@@ -639,7 +637,7 @@ static void RTC_Task(void)
 }
 
 /**
-  *@brief ´®¿Ú½ÓÊÕÍ³Ò»»Øµ÷
+  *@brief ä¸²å£æ¥æ”¶å›è°ƒå‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -647,25 +645,26 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
 	if(huart->Instance == USART1)
 	{
-		Serial_Rx_Callback(Size);
+		Serial_Rx_Callback(Size);//è°ƒç”¨è‡ªå·±å°è£…çš„ä¸²å£æ¥æ”¶å›è°ƒ
 	}
 	if(huart->Instance == USART2)
 	{
-		BlueTooth_Rx_Callback(Size);
+		BlueTooth_Rx_Callback(Size);//è°ƒç”¨è‡ªå·±å°è£…çš„è“ç‰™æ¥æ”¶å›è°ƒ
 	}
 }
 
 /**
-  *@brief ÈÎÎñÇı¶¯ÔËĞĞº¯Êı Ö÷º¯ÊıÀïÑ­»·Ö´ĞĞ´Ëº¯Êı
+  *@brief  çŠ¶æ€æœºè°ƒåº¦
   *@param NULL
   *@retval NULL
   */
 void TaskDriver_Run(void)
 {
-	IR_LightControl();
+	IR_LightControl();//çº¢å¤–ç¯æ§åˆ¶å‡½æ•°
 	
-	Serial_ProcessCmd();
-	BlueTooth_ProcessCmd();
+	//å¤„ç†å‘½ä»¤ï¼Œå¦‚æ²¡æœ‰ç«‹åˆ»è¿”å›
+	Serial_ProcessCmd();//å¤„ç†ä¸²å£å‘½ä»¤
+	BlueTooth_ProcessCmd();//å¤„ç†è“ç‰™å‘½ä»¤
 	
 	switch(State)
 	{

@@ -1,6 +1,6 @@
-/** 
+/**
  * @file Serial.c
- * @brief ´®¿Ú¹¦ÄÜ
+ * @brief ä¸²å£åŠŸèƒ½
  * @author Nahida
  * @date 2026.5.26
  */
@@ -40,7 +40,7 @@ extern volatile uint16_t TMMemory_Index;
 
 
 /**
-  *@brief ´®¿Ú´¦Àí½á¹¹Ìå
+  *@brief ä¸²å£å¤„ç†ç»“æ„ä½“
   *@param NULL
   *@retval NULL
   */
@@ -53,7 +53,7 @@ typedef struct{
 }Serial_CmdParam_t;
 
 /**
-  *@brief ´®¿ÚÏÔÊ¾½á¹¹Ìå
+  *@brief ä¸²å£æ˜¾ç¤ºç»“æ„ä½“
   *@param NULL
   *@retval NULL
   */
@@ -64,29 +64,29 @@ typedef struct{
 }Serial_Cmd_t;
 
 /**
-  *@brief ´®¿Ú³õÊ¼»¯ 
+  *@brief ä¸²å£åˆå§‹åŒ–
   *@param NULL
   *@retval NULL
   */
 void Serial_Init(void)
 {
-	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, Serial_Rx_Buf, SR_BUF_SIZE);
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, Serial_Rx_Buf, SR_BUF_SIZE);//ä½¿ç”¨DMA+ç©ºé—²ä¸­æ–­æ¥æ”¶
 }
 
 /**
-  *@brief ´®¿ÚÖØ¶¨Ïò
+  *@brief ä¸²å£å‘é€å­—ç¬¦
   *@param NULL
-  *@retval ch ×Ö½Ú
+  *@retval ch å­—èŠ‚
   */
 int fputc(int ch, FILE *f)
 {
-	HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,HAL_MAX_DELAY);
-	return ch;	
+	HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+	return ch;
 }
 
 /**
-  *@brief ÎÂ¶ÈÉèÖÃ»Øµ÷º¯Êı
-  *@param value ´«ÈëµÄ²ÎÊı
+  *@brief æ¸©åº¦é˜ˆå€¼è®¾ç½®å›è°ƒå‡½æ•°
+  *@param value ä¼ å…¥çš„å‚æ•°
   *@retval NULL
   */
 static void SetTempThre(int value)
@@ -96,8 +96,8 @@ static void SetTempThre(int value)
 }
 
 /**
-  *@brief Êª¶ÈÉèÖÃ»Øµ÷º¯Êı
-  *@param value ´«ÈëµÄ²ÎÊı
+  *@brief æ¹¿åº¦é˜ˆå€¼è®¾ç½®å›è°ƒå‡½æ•°
+  *@param value ä¼ å…¥çš„å‚æ•°
   *@retval NULL
   */
 static void SetHumiThre(int value)
@@ -107,8 +107,8 @@ static void SetHumiThre(int value)
 }
 
 /**
-  *@brief ÑÌÎíÉèÖÃ»Øµ÷º¯Êı
-  *@param value ´«ÈëµÄ²ÎÊı
+  *@brief çƒŸé›¾é˜ˆå€¼è®¾ç½®å›è°ƒå‡½æ•°
+  *@param value ä¼ å…¥çš„å‚æ•°
   *@retval NULL
   */
 static void SetSmogThre(int value)
@@ -118,8 +118,8 @@ static void SetSmogThre(int value)
 }
 
 /**
-  *@brief LEDÁÁ¶ÈÉèÖÃ»Øµ÷º¯Êı
-  *@param value ´«ÈëµÄ²ÎÊı
+  *@brief LEDäº®åº¦è®¾ç½®å›è°ƒå‡½æ•°
+  *@param value ä¼ å…¥çš„å‚æ•°
   *@retval NULL
   */
 static void SetBrightness(int value)
@@ -130,8 +130,8 @@ static void SetBrightness(int value)
 }
 
 /**
-  *@brief ·çÉÈ¿ªÆôÎÂ¶ÈÉèÖÃ»Øµ÷º¯Êı
-  *@param value ´«ÈëµÄ²ÎÊı
+  *@brief é£æ‰‡å¼€å¯æ¸©åº¦è®¾ç½®å›è°ƒå‡½æ•°
+  *@param value ä¼ å…¥çš„å‚æ•°
   *@retval NULL
   */
 static void SetMotorOn(int value)
@@ -141,8 +141,8 @@ static void SetMotorOn(int value)
 }
 
 /**
-  *@brief ·çÉÈÈ«ËÙÎÂ¶ÈÉèÖÃ»Øµ÷º¯Êı
-  *@param value ´«ÈëµÄ²ÎÊı
+  *@brief é£æ‰‡å…¨é€Ÿæ¸©åº¦è®¾ç½®å›è°ƒå‡½æ•°
+  *@param value ä¼ å…¥çš„å‚æ•°
   *@retval NULL
   */
 static void SetMotorMax(int value)
@@ -152,19 +152,19 @@ static void SetMotorMax(int value)
 }
 
 /**
-  *@brief ´®¿Ú´òÓ¡×´Ì¬ĞÅÏ¢
+  *@brief ä¸²å£æ‰“å°çŠ¶æ€ä¿¡æ¯
   *@param NULL
   *@retval NULL
   */
 static void Serial_ShowStatus(void)
 {
-	printf("[Status]Lock:%s Temp:%d.%d Humi:%d.%d Smog:%dppm Light:%d Unlockcnt:%d Warnings:%d\r\n", 
-					Vertify_State ? "Open" : "Close", 
+	printf("[Status]Lock:%s Temp:%d.%d Humi:%d.%d Smog:%dppm Light:%d Unlockcnt:%d Warnings:%d\r\n",
+					Vertify_State ? "Open" : "Close",
 					Temph, Templ, Humih, Humil, (uint16_t)Smog, Light, Succeses, Warnings);
 }
 
 /**
-  *@brief ´®¿Ú´òÓ¡ÀúÊ·ÃÜÂë¼ÇÂ¼
+  *@brief ä¸²å£æ‰“å°å†å²è®°å½•
   *@param NULL
   *@retval NULL
   */
@@ -199,7 +199,7 @@ static void Serial_ShowRecord(void)
 }
 
 /**
-  *@brief ´®¿Ú¹ØË÷
+  *@brief ä¸²å£å…³é”
   *@param NULL
   *@retval NULL
   */
@@ -218,7 +218,7 @@ static void Serial_LockClose(void)
 }
 
 /**
-  *@brief ´®¿Ú¿ªËø
+  *@brief ä¸²å£å¼€é”
   *@param NULL
   *@retval NULL
   */
@@ -237,7 +237,7 @@ static void Serial_LockOpen(void)
 }
 
 /**
-  *@brief ´®¿Ú´òÓ¡°ïÖúĞÅÏ¢
+  *@brief ä¸²å£æ‰“å°å¸®åŠ©ä¿¡æ¯
   *@param NULL
   *@retval NULL
   */
@@ -249,8 +249,8 @@ static void Serial_ShowHelp(void)
 }
 
 /**
-  *@brief ´®¿ÚÃüÁî½á¹¹Ìå¸³Öµ
-  *@param value ´«ÈëµÄ²ÎÊı
+  *@brief ä¸²å£å‚æ•°ç»“æ„ä½“èµ‹å€¼
+  *@param value ä¼ å…¥çš„å‚æ•°
   *@retval NULL
   */
 static const Serial_CmdParam_t Serial_CmdParam[] =
@@ -264,8 +264,8 @@ static const Serial_CmdParam_t Serial_CmdParam[] =
 };
 
 /**
-  *@brief ´®¿ÚÏÔÊ¾½á¹¹Ìå¸³Öµ
-  *@param value ´«ÈëµÄ²ÎÊı
+  *@brief ä¸²å£æ˜¾ç¤ºç»“æ„ä½“èµ‹å€¼
+  *@param value ä¼ å…¥çš„å‚æ•°
   *@retval NULL
   */
 static const Serial_Cmd_t Serial_Cmd[]=
@@ -281,9 +281,9 @@ static uint8_t CmdParam_Size = sizeof(Serial_CmdParam) / sizeof(Serial_CmdParam[
 static uint8_t Cmd_Size = sizeof(Serial_Cmd) / sizeof(Serial_Cmd[0]);
 
 /**
-  *@brief ´®¿Ú½ÓÊÕ»Øµ÷
-  *@param huart µ÷ÓÃ»Øµ÷µÄ´®¿Ú¾ä±ú
-	*@param Size ´®¿Ú½ÓÊÕµ½µÄÊı¾İ³¤¶È
+  *@brief ä¸²å£æ¥æ”¶å›è°ƒ
+  *@param huart è°ƒç”¨å›è°ƒçš„ä¸²å£å¥æŸ„
+	*@param Size ä¸²å£æ¥æ”¶åˆ°çš„æ•°æ®é•¿åº¦
   *@retval NULL
   */
 void Serial_Rx_Callback(uint16_t Size)
@@ -296,16 +296,16 @@ void Serial_Rx_Callback(uint16_t Size)
 	{
 		Serial_Rx_Buf[SR_BUF_SIZE - 1] = '\0';
 	}
-		
+
 	Serial_Rx_Buf[strcspn((char*)Serial_Rx_Buf, "\r\n")] = '\0';
-	
+
 	Serial_Cmd_Ready = 1;
-	
-	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, Serial_Rx_Buf, SR_BUF_SIZE);	
+
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, Serial_Rx_Buf, SR_BUF_SIZE);
 }
 
 /**
-  *@brief ´®¿Ú½ÓÊÕÃüÁî´¦ÀíĞÅÏ¢
+  *@brief ä¸²å£æ¥æ”¶å‘½ä»¤å¤„ç†
   *@param NULL
   *@retval NULL
   */
@@ -313,9 +313,9 @@ void Serial_ProcessCmd(void)
 {
 	if(Serial_Cmd_Ready == 0){return;}
 	Serial_Cmd_Ready = 0;
-	
+
 	int value = 0;
-	
+
 	for(uint8_t i = 0; i < Cmd_Size; i++)
 	{
 		if(strcmp((const char*)Serial_Rx_Buf, Serial_Cmd[i].Cmd) == 0)
@@ -324,7 +324,7 @@ void Serial_ProcessCmd(void)
 			return;
 		}
 	}
-	
+
 	for(uint8_t i = 0; i < CmdParam_Size; i++)
 	{
 		if(sscanf((const char*)Serial_Rx_Buf, Serial_CmdParam[i].Cmd, &value) == 1)

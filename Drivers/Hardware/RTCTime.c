@@ -1,6 +1,6 @@
-/** 
+/**
  * @file RTCTime.c
- * @brief RTCÊµÊ±Ê±ÖÓ
+ * @brief RTCå®æ—¶æ—¶é’Ÿ
  * @author Nahida
  * @date 2026.6.6
  */
@@ -9,13 +9,13 @@
 
 extern RTC_HandleTypeDef hrtc;
 
-/* RTC»ñÈ¡Ê±¼ä±ØĞëÏÈ»ñÈ¡Ê±¼äÔÙ»ñÈ¡ÈÕÆÚ£¬ÇÒ»ñÈ¡ÍêÊ±¼ä±ØĞë»ñÈ¡ÈÕÆÚ */
+/* RTCè·å–æ—¶é—´ï¼Œå¿…é¡»å…ˆè·å–æ—¶é—´å†è·å–æ—¥æœŸï¼Œä¸”è·å–æ—¶é—´åå¿…é¡»è·å–æ—¥æœŸ */
 
 /**
-  *@brief RTC»ñÈ¡µ±Ç°Ê±¼ä
-  *@param hour µ±Ç°Ğ¡Ê±
-	*@param minute µ±Ç°·ÖÖÓ
-	*@param second µ±Ç°ÃëÊı
+  *@brief RTCè·å–å½“å‰æ—¶é—´
+  *@param hour å½“å‰å°æ—¶
+	*@param minute å½“å‰åˆ†é’Ÿ
+	*@param second å½“å‰ç§’é’Ÿ
   *@retval NULL
   */
 void RTC_GetTime(uint8_t *hour, uint8_t *minute, uint8_t *second)
@@ -28,12 +28,12 @@ void RTC_GetTime(uint8_t *hour, uint8_t *minute, uint8_t *second)
 }
 
 /**
-  *@brief RTC»ñÈ¡µ±Ç°ÈÕÆÚ
-  *@param year µ±Ç°Äê·İ
-	*@param month µ±Ç°ÔÂ·İ
-	*@param weekday µ±Ç°ÖÜ¼¸
-	*@param date µ±Ç°¼¸ºÅ
-  *@retval 
+  *@brief RTCè·å–å½“å‰æ—¥æœŸ
+  *@param year å½“å‰å¹´ä»½
+	*@param month å½“å‰æœˆä»½
+	*@param weekday å½“å‰æ˜ŸæœŸ
+	*@param date å½“å‰æ—¥æœŸ
+  *@retval
   */
 void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *weekday, uint8_t *date)
 {
@@ -46,10 +46,10 @@ void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *weekday, uint8_t *date)
 }
 
 /**
-  *@brief RTCÉèÖÃÊ±¼ä
-  *@param hour Ğ¡Ê±
-	*@param minute ·ÖÖÓ
-	*@param second Ãë
+  *@brief RTCè®¾ç½®æ—¶é—´
+  *@param hour å°æ—¶
+	*@param minute åˆ†é’Ÿ
+	*@param second ç§’
   *@retval NULL
   */
 void RTC_SetTime(uint8_t hour, uint8_t minute, uint8_t second)
@@ -62,12 +62,12 @@ void RTC_SetTime(uint8_t hour, uint8_t minute, uint8_t second)
 }
 
 /**
-  *@brief RTCÉèÖÃÈÕÆÚ
-  *@param year Äê
-	*@param month ÔÂ
-	*@param weekday ÖÜ
-	*@param date ÈÕ
-  *@retval 
+  *@brief RTCè®¾ç½®æ—¥æœŸ
+  *@param year å¹´
+	*@param month æœˆ
+	*@param weekday æ˜ŸæœŸ
+	*@param date æ—¥
+  *@retval
   */
 void RTC_SetDate(uint8_t year, uint8_t month, uint8_t weekday, uint8_t date)
 {
@@ -78,4 +78,3 @@ void RTC_SetDate(uint8_t year, uint8_t month, uint8_t weekday, uint8_t date)
 	sDate.Date = date;
 	HAL_RTC_SetDate(&hrtc, &sDate, FORMAT_BIN);
 }
-

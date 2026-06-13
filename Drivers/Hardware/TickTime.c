@@ -1,6 +1,6 @@
-/** 
+/**
  * @file TickTime.c
- * @brief ¸ù¾İtick»ñÈ¡µ±Ç°Ê±¼ä
+ * @brief ä½¿ç”¨tickè·å–å½“å‰æ—¶é—´
  * @author Nahida
  * @date 2026.5.23
  */
@@ -12,7 +12,7 @@ static uint32_t Raw_Time = 0;
 static uint32_t Total_Sec = 0;
 
 /**
-  *@brief Ê±¼ä³õÊ¼»¯£¬ÓÃÓÚ¼ÇÂ¼³õ´ÎÔËĞĞÊ±µÄtick
+  *@brief æ—¶é’Ÿåˆå§‹åŒ–ï¼Œç”¨äºè®°å½•ç¨‹åºè¿è¡Œæ—¶é—´tick
   *@param NULL
   *@retval NULL
   */
@@ -22,10 +22,10 @@ void TickTime_Init(void)
 }
 
 /**
-  *@brief »ñÈ¡µ±Ç°Ê±¼ä
-  *@param hour Ê±
-	*	      min  ·Ö
-	*       sec  Ãë
+  *@brief è·å–å½“å‰æ—¶é—´
+  *@param hour æ—¶
+	*	      min  åˆ†
+  *       sec  ç§’
   *@retval NULL
   */
 void Tick_GetTime(uint8_t *hour, uint8_t *min, uint8_t *sec)

@@ -1,3 +1,10 @@
+/**
+ * @file IRTransmit.c
+ * @brief 红外发送
+ * @author Nahida
+ * @date 2026.6.3
+ */
+
 #include "stm32f4xx.h"                  // Device header
 #include "Delay.h"
 
@@ -10,24 +17,44 @@ extern TIM_HandleTypeDef htim5;
 //	HAL_TIM_PWM_Start(&htim5, IR_CHANNEL);
 //}
 
+/**
+  *@brief IR发送高电平
+  *@param NULL
+  *@retval NULL
+  */
 static void IR_SendHigh(uint16_t time)
 {
 	HAL_TIM_PWM_Start(&htim5, IR_TR_CHANNEL);
 	Delay_us(time);
 }
 
+/**
+  *@brief IR发送低
+  *@param NULL
+  *@retval NULL
+  */
 static void IR_SendLow(uint16_t time)
 {
 	HAL_TIM_PWM_Stop(&htim5, IR_TR_CHANNEL);
 	Delay_us(time);
 }
 
+/**
+  *@brief 发送引导码
+  *@param NULL
+  *@retval NULL
+  */
 static void IR_SendLeader(void)
 {
 	IR_SendHigh(9000);
 	IR_SendLow(4500);
 }
 
+/**
+  *@brief 发送一位
+  *@param NULL
+  *@retval NULL
+  */
 static void IR_SendBit(uint8_t bit)
 {
 	if(bit)
@@ -42,6 +69,11 @@ static void IR_SendBit(uint8_t bit)
 	}
 }
 
+/**
+  *@brief 发送一个字节
+  *@param NULL
+  *@retval NULL
+  */
 static void IR_SendByte(uint8_t byte)
 {
 	for(uint8_t i = 0; i < 8; i++)
@@ -51,6 +83,11 @@ static void IR_SendByte(uint8_t byte)
 	}
 }
 
+/**
+  *@brief 发送数据
+  *@param NULL
+  *@retval NULL
+  */
 void IR_SendData(uint8_t addr, uint8_t data)
 {
 	IR_SendLeader();

@@ -1,10 +1,10 @@
-/** 
+/**
  * @file Password.c
- * @brief ÃÜÂëÈÏÖ¤ºÍĞŞ¸Ä
+ * @brief å¯†ç éªŒè¯å’Œä¿®æ”¹
  * @author Nahida
  * @date 2026.5.22
  */
- 
+
 #include "stm32f4xx.h"                  // Device header
 
 #include "Matrix.h"
@@ -69,7 +69,7 @@ uint8_t Succeses = 0;
 static uint8_t Password_Sel = 0;
 
 /**
-  *@brief ÓÃ»§ÃÜÂëÇå¿Õ
+  *@brief ç”¨æˆ·è¾“å…¥æ¸…ç©º
   *@param NULL
   *@retval NULL
   */
@@ -80,10 +80,10 @@ static void Userword_Clear()
 		Userword[i] = 0;
 	}
 	Userword_Index = 0;
-}	
+}
 
 /**
-  *@brief ÕıÈ·ÃÜÂëÇå¿Õ
+  *@brief æ­£ç¡®å¯†ç æ¸…ç©º
   *@param NULL
   *@retval NULL
   */
@@ -96,7 +96,7 @@ static void Password_Clear()
 }
 
 /**
-  *@brief ÁÙÊ±ÃÜÂëÇå¿Õ
+  *@brief ä¸´æ—¶å¯†ç æ¸…ç©º
   *@param NULL
   *@retval NULL
   */
@@ -110,33 +110,33 @@ static void NewPassword_Clear()
 }
 
 /**
-  *@brief ÁÙÊ±ÃÜÂë¸üĞÂµ½ÕıÈ·ÃÜÂë
+  *@brief ä¸´æ—¶å¯†ç æ›´æ–°åˆ°æ­£ç¡®å¯†ç 
   *@param NULL
   *@retval NULL
   */
 static void NewPassword_Set()
 {
 	Password_Clear();
-	
+
 	for(uint8_t i = 0; i < Password_Length; i++)
 	{
 		Password[i] = NewPassWord[i];
 	}
-	
+
 	NewPassword_Clear();
 }
 
 /**
-  *@brief ÓĞĞ§ÃÜÂëÇĞ»»
+  *@brief å¯†ç é€‰æ‹©åˆ‡æ¢
   *@param	NULL
-  *@retval STEP_OK 1 ³É¹¦
-	*        ERR     0 Ê§°Ü
-	*		 STEP_RETURN 6 ·µ»ØÉÏÒ»¼¶
+  *@retval STEP_OK 1 æˆåŠŸ
+	*        ERR     0 å¤±è´¥
+	*		 STEP_RETURN 6 è¿”å›ä¸Šä¸€çº§
   */
 int8_t Password_Select()
 {
 	Key = Matrix_GetNum();
-	
+
 	switch(Key)
 	{
 		case 11:
@@ -153,7 +153,7 @@ int8_t Password_Select()
 						for(uint8_t i = 0; i < Password1_Length; i++)
 						{
 							Password[i] = Password1[i];
-						}	
+						}
 						Password_Length = Password1_Length;
 						return STEP_OK;
 					case 1:
@@ -180,14 +180,14 @@ int8_t Password_Select()
 			default:
 				return ERR;
 	}
-	
+
 }
 
 /**
-  *@brief ¸üĞÂµ±Ç°ÃÜÂëµ½¶ÔÓ¦ÃÜÂë
-  *@param NULL 
-  *@retval STEP_OK 1 ³É¹¦
-  *        ERR     0	Ê§°Ü	
+  *@brief æ›´æ–°å½“å‰å¯†ç åˆ°å¯¹åº”æ•°ç»„
+  *@param NULL
+  *@retval STEP_OK 1 æˆåŠŸ
+  *        ERR     0	å¤±è´¥
   */
 static int8_t Password_Refresh()
 {
@@ -226,17 +226,17 @@ static int8_t Password_Refresh()
 		  }
 			Password3_Length = Password_Length;
 		  return STEP_OK;
-		default: 
+		default:
 			return ERR;
 	}
 }
 
 /**
-  *@brief ÃÜÂëÀúÊ·¼ÇÂ¼
+  *@brief è®°å½•å†å²è®°å½•
   *@param NULL
-  *@retval STEP_OK  1 ³É¹¦ 
-  *        ERR      0 µ±Ç°ÃÜÂëÎª¿Õ
-  *		   LEN_ERR -1 ³¤¶È²»¶Ô
+  *@retval STEP_OK  1 æˆåŠŸ
+  *        ERR      0 å½“å‰è¾“å…¥ä¸ºç©º
+  *		   LEN_ERR -1 é•¿åº¦ä¸å¤Ÿ
   */
 static int8_t UserwordToMemory()
 {
@@ -251,10 +251,10 @@ static int8_t UserwordToMemory()
 }
 
 /**
-  *@brief ´æ´¢Ê±¼ä
+  *@brief å­˜å‚¨æ—¶é—´
   *@param NULL
-  *@retval ERR     0 ´æ´¢Ê§°Ü
-  *        STEP_OK 1 ³É¹¦
+  *@retval ERR     0 å­˜å‚¨å¤±è´¥
+  *        STEP_OK 1 æˆåŠŸ
   */
 static int8_t TimeToMemory()
 {
@@ -262,7 +262,7 @@ static int8_t TimeToMemory()
 	uint8_t Year = 0, Mon = 0, Week = 0, Date = 0;
 	if(TMMemory_Index + 4 > TM_MAX_SIZE){return ERR;}
 	RTC_GetTime(&Hour, &Min, &Sec);
-	RTC_GetDate(&Year, &Mon, &Week, &Date);//´Ë´¦Ö»ÊÇÇå³ıÓ°×Ó¼Ä´æÆ÷
+	RTC_GetDate(&Year, &Mon, &Week, &Date);//æ­¤å¤„éœ€è¦è¯»å½±å­å¯„å­˜å™¨
 	TimeMemory[TMMemory_Index++] = Hour;
 	TimeMemory[TMMemory_Index++] = Min;
 	TimeMemory[TMMemory_Index++] = Sec;
@@ -271,19 +271,19 @@ static int8_t TimeToMemory()
 }
 
 /**
-  *@brief ÃÜÂëÈÏÖ¤
+  *@brief å¯†ç éªŒè¯
   *@param NULL
-  *@retval STEP_OK  1 ²½Öè³É¹¦
-  *        PWD_OK   2 ÈÏÖ¤³É¹¦
-  *        LEN_ERR -1 ³¤¶È´íÎó
-  *        PWD_ERR -2 ÃÜÂë´íÎó
-  *        MEM_ERR -3 ´æ´¢Ê§°Ü
-	*        STEP_RETURN 6 ·µ»ØÉÏÒ»¼¶ 
+  *@retval STEP_OK  1 è¾“å…¥æˆåŠŸ
+  *        PWD_OK   2 éªŒè¯æˆåŠŸ
+  *        LEN_ERR -1 é•¿åº¦é”™è¯¯
+  *        PWD_ERR -2 å¯†ç é”™è¯¯
+  *        MEM_ERR -3 å­˜å‚¨å¤±è´¥
+	*        STEP_RETURN 6 è¿”å›ä¸Šä¸€çº§
   */
 int8_t Password_Vertify()
 {
 	Key = Matrix_GetNum();
-	
+
 	switch(Key)
 	{
 		case 1:
@@ -295,7 +295,7 @@ int8_t Password_Vertify()
 		case 7:
 		case 8:
 		case 9:
-			if(Userword_Index < PASSWORD_MAX_LENGTH)//ÊäÈë°ËÎ»ºó½ûÖ¹ÊäÈë
+			if(Userword_Index < PASSWORD_MAX_LENGTH)//é˜²æ­¢æ•°ç»„è¶Šç•Œ
 			{
 				Userword[Userword_Index++] = Key;
 				return STEP_OK;
@@ -306,7 +306,7 @@ int8_t Password_Vertify()
 				return LEN_ERR;
 			}
 		case 10:
-			if(Userword_Index < PASSWORD_MAX_LENGTH)//ÊäÈë°ËÎ»ºó½ûÖ¹ÊäÈë
+			if(Userword_Index < PASSWORD_MAX_LENGTH)//é˜²æ­¢æ•°ç»„è¶Šç•Œ
 			{
 				Userword[Userword_Index++] = 0;
 				return STEP_OK;
@@ -316,56 +316,56 @@ int8_t Password_Vertify()
 				Userword_Clear();
 				return LEN_ERR;
 			}
-		case 11://È·¶¨
-			if(Password_Length < PASSWORD_MIN_LENGTH || Password_Length > PASSWORD_MAX_LENGTH)//ÑéÖ¤³¤¶ÈºÏ·¨
+		case 11://ç¡®è®¤
+			if(Password_Length < PASSWORD_MIN_LENGTH || Password_Length > PASSWORD_MAX_LENGTH)//éªŒè¯é•¿åº¦åˆæ³•
 			{
 					Userword_Clear();
 					Vertify_State = 0;
 				  Warnings++;
 					return LEN_ERR;
 			}
-			
+
 			if(UserwordToMemory() != STEP_OK){return MEM_ERR;}
 			if(TimeToMemory() != STEP_OK){return ERR;}
-			
-			if(Userword_Index != Password_Length)//³¤¶È²»¶Ô¾Í²»¶ÔÁË
+
+			if(Userword_Index != Password_Length)//é•¿åº¦ä¸å¯¹å°±ä¸ç”¨æ¯”äº†
 			{
 				Userword_Clear();
 				Warnings++;
 				return PWD_ERR;
 			}
-			
-			for(uint8_t i = 0; i < Password_Length; i++)//³¤¶È¶ÔÁËÔÙ°¤¸ö±È½Ï
+
+			for(uint8_t i = 0; i < Password_Length; i++)//é•¿åº¦å¯¹äº†å†æŒ‰ä½æ¯”è¾ƒ
 			{
 				if(Userword[i] != Password[i])
-					{	
+					{
 						Userword_Clear();
 						Warnings++;
 						return PWD_ERR;
 					}
 			}
 			Userword_Clear();
-			Vertify_State = 1;//ÈÏÖ¤³É¹¦
+			Vertify_State = 1;//éªŒè¯æˆåŠŸ
 			Warnings = 0;
 			Succeses++;
 //			Display_ShowLockFreq();
 			return PWD_OK;
-		case 12://¿ªËø
+		case 12://å¼€é—¨
 			if(Vertify_State != 1){return 0;}
 //			Display_ShowLockState(1);
 //			StepMotor_Forward_90_Degree(1);
 			return STEP_OK;
-		case 13://¹ØËø
+		case 13://å…³é—¨
 			if(Vertify_State != 1){return 0;}
 //			OLED_ShowLockState(0);
 //			StepMotor_Forward_90_Degree(-1);
 			Vertify_State = 0;
 			return STEP_OK;
-		case 14://É¾³ı
-			if(Userword_Index > 0)//·ÀÖ¹Êı×éÔ½½ç
+		case 14://åˆ é™¤
+			if(Userword_Index > 0)//é˜²æ­¢æ•°ç»„è¶Šç•Œ
 			{
 				Userword_Index--;
-				Userword[Userword_Index] = 0;				
+				Userword[Userword_Index] = 0;
 			}
 			return STEP_OK;
 		case 16:
@@ -377,21 +377,21 @@ int8_t Password_Vertify()
 }
 
 /**
-  *@brief ĞŞ¸ÄÃÜÂë
+  *@brief ä¿®æ”¹å¯†ç 
   *@param NULL
-  *@retval STEP_OK     1 ²½Öè³É¹¦
-  *        CHA_OK      5 ĞŞ¸Ä³É¹¦
-  *        LEN_ERR    -1 ³¤¶È´íÎó	
-  *        STEP_RETURN 6 ·µ»ØÉÏÒ»¼¶
+  *@retval STEP_OK     1 è¾“å…¥æˆåŠŸ
+  *        CHA_OK      5 ä¿®æ”¹æˆåŠŸ
+  *        LEN_ERR    -1 é•¿åº¦é”™è¯¯
+  *        STEP_RETURN 6 è¿”å›ä¸Šä¸€çº§
   */
 int8_t Password_Change()
 {
 	Key = Matrix_GetNum();
-//	if(Vertify_State != 1)//ÈÏÖ¤×´Ì¬ÏÂ²Å¿ÉĞŞ¸Ä
+//	if(Vertify_State != 1)//éªŒè¯çŠ¶æ€ä¸‹æ‰å¯ä¿®æ”¹
 //		{
 //			return -1;
 //		}
-	
+
 	switch(Key)
 	{
 		case 1:
@@ -405,7 +405,7 @@ int8_t Password_Change()
 		case 9:
 			if(Password_Index < PASSWORD_MAX_LENGTH)
 			{
-				NewPassWord[Password_Index++] = Key; 
+				NewPassWord[Password_Index++] = Key;
 				return STEP_OK;
 			}
 			else
@@ -416,15 +416,15 @@ int8_t Password_Change()
 		case 10:
 			if(Password_Index < PASSWORD_MAX_LENGTH)
 			{
-				NewPassWord[Password_Index++] = 0; 
+				NewPassWord[Password_Index++] = 0;
 				return STEP_OK;
 			}
 			else
 			{
 				NewPassword_Clear();
 				return LEN_ERR;
-			}			
-		case 11://È·¶¨
+			}
+		case 11://ç¡®è®¤
 			if(Password_Index < PASSWORD_MIN_LENGTH)
 				{
 					NewPassword_Clear();
@@ -432,14 +432,14 @@ int8_t Password_Change()
 				}
 			Password_Length = Password_Index;
 			NewPassword_Set();
-			Password_Refresh();	
+			Password_Refresh();
 			// Vertify_State = 0;
 			return CHA_OK;
-		case 14://É¾³ı
+		case 14://åˆ é™¤
 			if(Password_Index > 0)
 			{
 				Password_Index--;
-				NewPassWord[Password_Index] = 0;				
+				NewPassWord[Password_Index] = 0;
 			}
 			return STEP_OK;
 		case 16:
@@ -450,11 +450,11 @@ int8_t Password_Change()
 
 
 /**
-  *@brief ÃÜÂë´íÎó´ÎÊı±¨¾¯
+  *@brief æŠ¥è­¦é”™è¯¯è®¡æ•°æ£€æŸ¥
   *@param NULL
-  *@retval ERR_COM 3 ´íÎóÒ»´ÎÆÕÍ¨±¨¾¯
-  *        ERR_SPE 4 ´íÎóÈı´ÎÒÔÉÏÌØÊâ±¨¾¯
-  *        STEP_OK 1 ÎŞ´íÎó´ÎÊı
+  *@retval ERR_COM 3 æŠ¥è­¦ä¸€æ¬¡æ™®é€šæŠ¥è­¦
+  *        ERR_SPE 4 è¿ç»­é”™è¯¯ç‰¹æ®ŠæŠ¥è­¦
+  *        STEP_OK 1 æ— é”™è¯¯æ­£å¸¸
   */
 uint8_t Open_Error()
 {

@@ -1,6 +1,6 @@
-/** 
+/**
  * @file StepMotor.c
- * @brief ËÄÏà°ËÅÄ²½½øµç»ú¿ØÖÆ
+ * @brief æ­¥è¿›ç”µæœºçš„é©±åŠ¨å’Œè½¬åŠ¨æ§åˆ¶
  * @author Nahida
  * @date 2026.5.24
  */
@@ -20,38 +20,38 @@
 //static uint8_t StepMotor_Busy = 0;
 
 static uint8_t Step_Table[8][4] = {
-																		{1, 0, 0, 0}, 
-																		{1, 1, 0, 0}, 
-																		{0, 1, 0, 0},
-																		{0, 1, 1, 0}, 
-																		{0, 0, 1, 0}, 
-																		{0, 0, 1, 1}, 
-																		{0, 0, 0, 1}, 
-																		{1, 0, 0, 1}};
+								    {1, 0, 0, 0},
+								    {1, 1, 0, 0},
+								    {0, 1, 0, 0},
+								    {0, 1, 1, 0},
+								    {0, 0, 1, 0},
+								    {0, 0, 1, 1},
+								    {0, 0, 0, 1},
+								    {1, 0, 0, 1}};
 
 
 
 //void StepMotor_Delay(uint16_t ms)
 //{
 //	static uint32_t ticks = 0;
-//	
-//}	
+//
+//}
 
 /**
- *@brief ¸ù¾İ²½Êı×ø±ê¿ØÖÆËÄÏà
- *@param step:²½Êı×ø±ê
+ *@brief æ ¹æ®æ­¥è¿›è¡¨é©±åŠ¨ä¸€æ­¥
+ *@param step:æ­¥è¿›ç´¢å¼•
  *@retval NULL
- */																		
+ */
 static void StepMotor_Step(uint8_t step)
 {
 	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_A,Step_Table[step][0] ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_B,Step_Table[step][1] ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_C,Step_Table[step][2] ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_D,Step_Table[step][3] ? GPIO_PIN_SET : GPIO_PIN_RESET);
-}	
+}
 
 /**
-  *@brief µç»úÍ£Ö¹
+  *@brief ç”µæœºåœæ­¢
   *@param NULL
   *@retval NULL
   */
@@ -60,13 +60,13 @@ static void StepMotor_Stop(void)
 	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_A,GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_B,GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_C,GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_D,GPIO_PIN_RESET);	
+	HAL_GPIO_WritePin(MOTOR_PORT,MOTOR_PIN_D,GPIO_PIN_RESET);
 }
 
 /**
-  *@brief ¿ØÖÆµç»úÏòÒ»¸ö·½Ïò×ª¶¯Ò»¶¨²½Êı
-  *@param steps:°ËÅÄÑ­»·´ÎÊı ¼´×ª¶¯°ë²½Êı
-	*       dir:  Ğı×ª·½Ïò 1:Õı×ª -1:·´×ª
+  *@brief æ§åˆ¶ç”µæœºæ ¹æ®æ­¥è¿›æ•°è½¬åŠ¨æŒ‡å®šæ­¥æ•°
+  *@param steps:è„‰å†²å¾ªç¯æ¬¡æ•° æ­£è½¬æ‰€éœ€æ­¥æ•°
+	*       dir:  æ—‹è½¬æ–¹å‘ 1:æ­£è½¬ -1:åè½¬
   *@retval NULL
   */
 static void StepMotor_Forward(uint32_t steps, int8_t dir)
@@ -78,28 +78,27 @@ static void StepMotor_Forward(uint32_t steps, int8_t dir)
 			for(uint8_t j = 0; j < 8; j++)
 			{
 				StepMotor_Step(j);
-				HAL_Delay(MOTOR_DELAY_MS);//ºóĞø¸Ä³É·Ç×èÈû
-			}	
+				HAL_Delay(MOTOR_DELAY_MS);//æ”¹æˆéé˜»å¡å»¶æ—¶
+			}
 		}
 		else if(dir == -1)
 		{
 			for(int8_t j = 7; j >= 0; j--)
 			{
 				StepMotor_Step(j);
-				HAL_Delay(MOTOR_DELAY_MS);//ºóĞø¸Ä³É·Ç×èÈû
-			}				
+				HAL_Delay(MOTOR_DELAY_MS);//æ”¹æˆéé˜»å¡å»¶æ—¶
+			}
 		}
 	}
 	StepMotor_Stop();
 }
 
 /**
-  *@brief ¿ØÖÆµç»ú°´Ò»¸ö·½ÏòĞı×ª90¶È
-	*@param dir:·½Ïò 1:ÕıÏò 2:·´Ïò
+  *@brief æ§åˆ¶ç”µæœºæ­£åè½¬90åº¦
+	*@param dir:æ–¹å‘ 1:æ­£è½¬ -1:åè½¬
   *@retval NULL
   */
 void StepMotor_Forward_90_Degree(int8_t dir)
 {
 	StepMotor_Forward(MOTOR_90_DEGREE, dir);
 }
-

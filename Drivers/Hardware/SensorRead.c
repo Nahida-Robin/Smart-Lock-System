@@ -1,6 +1,6 @@
-/** 
+/**
  * @file SensorRead.c
- * @brief ´«¸ĞÆ÷¶ÁÈ¡Ä£¿é£¬°üº¬DHT11ÎÂÊª¶È´«¸ĞÆ÷ºÍADC¶ÁÈ¡µÄÑÌÎíºÍ¹âÕÕ´«¸ĞÆ÷ Í¨¹ı¶¨Ê±Æ÷ÖĞ¶ÏºÍADC×ª»»Íê³É»Øµ÷º¯ÊıÊµÏÖ¶¨Ê±¶ÁÈ¡ºÍÊı¾İ¸üĞÂ
+ * @brief å¤šä¼ æ„Ÿå™¨è¯»å–æ¨¡å—ï¼Œé›†æˆDHT11æ¸©æ¹¿åº¦ä¼ æ„Ÿå™¨ã€ADCè¯»å–çƒŸé›¾å’Œå…‰ç…§ä¼ æ„Ÿå™¨ã€‚é€šè¿‡å®šæ—¶å™¨ä¸­æ–­å’ŒADCè½¬æ¢å®Œæˆå›è°ƒå‡½æ•°å®ç°å®šæ—¶è¯»å–æ•°æ®æ›´æ–°
  * @author Nahida
  * @date 2026.6.2
  */
@@ -53,7 +53,7 @@ typedef enum{
 Sensor_t Sensor = SENSOR_IDLE;
 
 /**
-  *@brief ´«¸ĞÆ÷¶ÁÈ¡³õÊ¼»¯
+  *@brief ä¼ æ„Ÿå™¨è¯»å–åˆå§‹åŒ–
   *@param NULL
   *@retval NULL
   */
@@ -66,7 +66,7 @@ void SensorRead_Init(void)
 }
 
 /**
-  *@brief ±¨¾¯Êä³ö
+  *@brief æŠ¥è­¦è¾“å‡º
   *@param NULL
   *@retval NULL
   */
@@ -81,11 +81,11 @@ static void Alarm_Output(void)
 	{
 		LED_Off();
 		Buzzer_off();
-	}	
+	}
 }
 
 /**
-  *@brief ÎÂ¶È±¨¾¯¼ì²â
+  *@brief æ¸©åº¦æŠ¥è­¦æ£€æµ‹
   *@param NULL
   *@retval NULL
   */
@@ -103,12 +103,12 @@ static void TemAlarm_Check(void)
 	{
 		TempAlarm = 0;
 	}
-	
+
 	Alarm_Output();
 }
 
 /**
-  *@brief Êª¶È±¨¾¯¼ì²â
+  *@brief æ¹¿åº¦æŠ¥è­¦æ£€æµ‹
   *@param NULL
   *@retval NULL
   */
@@ -126,12 +126,12 @@ static void HumAlarm_Check(void)
 	{
 		HumiAlarm = 0;
 	}
-	
+
 	Alarm_Output();
 }
 
 /**
-  *@brief ÑÌÎí±¨¾¯¼ì²â
+  *@brief çƒŸé›¾æŠ¥è­¦æ£€æµ‹
   *@param NULL
   *@retval NULL
   */
@@ -149,12 +149,12 @@ static void SmoAlarm_Check(void)
 	{
 		SmogAlarm = 0;
 	}
-	
+
 	Alarm_Output();
 }
 
 /**
-  *@brief ÎÂ¿Ø·çÉÈÂß¼­
+  *@brief é£æ‰‡æ§åˆ¶é€»è¾‘
   *@param NULL
   *@retval NULL
   */
@@ -170,8 +170,8 @@ static void Motor_TemControl(void)
 }
 
 /**
-  *@brief TIM2¶¨Ê±Æ÷ÖĞ¶Ï»Øµ÷ Ã¿2sÒç³öÖĞ¶ÏÒ»´Î
-  *@param htim ¶¨Ê±Æ÷¾ä±ú
+  *@brief TIM2å®šæ—¶å™¨ä¸­æ–­å›è°ƒ æ¯2sè§¦å‘ä¸­æ–­ä¸€æ¬¡
+  *@param htim å®šæ—¶å™¨å¥æŸ„
   *@retval NULL
   */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
@@ -183,7 +183,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 }
 
 /**
-  *@brief ADC×ª»»Íê³É»Øµ÷º¯Êı
+  *@brief ADCè½¬æ¢å®Œæˆå›è°ƒå‡½æ•°
   *@param NULL
   *@retval NULL
   */
@@ -199,7 +199,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 }
 
 /**
-  *@brief ´«¸ĞÆ÷¶ÁÈ¡Ö÷º¯Êı ×´Ì¬»úÊµÏÖ
+  *@brief ä¼ æ„Ÿå™¨è¯»å–ä¸»å¾ªç¯ çŠ¶æ€æœºå®ç°
   *@param NULL
   *@retval NULL
   */

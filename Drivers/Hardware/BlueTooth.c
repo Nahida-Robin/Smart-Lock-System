@@ -1,6 +1,6 @@
 /** 
  * @file BlueTooth.c
- * @brief 
+ * @brief 蓝牙收发
  * @author Nahida
  * @date 2026.5.26
  */
@@ -232,7 +232,7 @@ static void BlueTooth_LockClose(void)
 }
 
 /**
-  *@brief 蓝牙控制开锁
+  *@brief 蓝牙控制开关
   *@param NULL
   *@retval NULL
   */

@@ -1,6 +1,6 @@
 /** 
  * @file Display.c
- * @brief Í¨¹ıµ÷ÓÃOLED½Ó¿ÚÏÔÊ¾×´Ì¬£¬·½±ãµ÷ÊÔ
+ * @brief  OLEDæ˜¾ç¤ºå°è£…ï¼Œéš”ç¦»OLEDåº•å±‚é©±åŠ¨
  * @author Nahida
  * @date 2026.5.26
  */
@@ -60,7 +60,7 @@ uint8_t Hour = 0, Min = 0, Sec = 0;
 uint8_t Year = 0, Mon = 0, Week = 0, Date = 0;
 
 /**
-  *@brief Í¨¹ıOLEDÊµÊ±ÏÔÊ¾ËøµÄ×´Ì¬
+  *@brief  æ˜¾ç¤ºé”çŠ¶æ€
   *@param NULL
   *@retval NULL
   */
@@ -77,7 +77,7 @@ void Display_ShowLockState(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÊµÊ±ÏÔÊ¾¿ªËø³É¹¦´ÎÊı
+  *@brief  æ˜¾ç¤ºå¼€é”æ¬¡æ•°
   *@param NULL
   *@retval NULL
   */
@@ -87,7 +87,7 @@ void Display_ShowLockSuc(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÊµÊ±ÏÔÊ¾¿ªËøÊ§°Ü´ÎÊı
+  *@brief æ˜¾ç¤ºé”™è¯¯æ¬¡æ•°
   *@param NULL
   *@retval NULL
   */
@@ -97,7 +97,7 @@ void Display_ShowLockErr(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾¿ÕÏĞ×´Ì¬
+  *@brief ç©ºé—²æ˜¾ç¤ºæ—¥æœŸæ—¶é—´å ä½ç¬¦
   *@param NULL
   *@retval NULL
   */
@@ -111,7 +111,7 @@ void Display_ShowIDLE(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾Ê±¼ä
+  *@brief æ˜¾ç¤ºæ—¶é—´
   *@param NULL
   *@retval NULL
   */
@@ -124,7 +124,7 @@ void Display_ShowTime(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÈÕÆÚ
+  *@brief æ˜¾ç¤ºæ—¥æœŸ
   *@param NULL
   *@retval NULL
   */
@@ -137,6 +137,11 @@ void Display_ShowDate(void)
 	OLED_ShowNum(1, 15, Week, 2);
 }
 
+/**
+  *@brief æ˜¾ç¤ºè®¾ç½®æ—¶é—´
+  *@param NULL
+  *@retval NULL
+  */
 void Display_ShowSetTime(void)
 {
 	OLED_ShowNum(2, 1, Hour, 2);
@@ -144,6 +149,11 @@ void Display_ShowSetTime(void)
 	OLED_ShowNum(2, 7, Sec, 2);
 }
 
+/**
+  *@brief æ˜¾ç¤ºè®¾ç½®æ—¥æœŸ
+  *@param NULL
+  *@retval NULL
+  */
 void Display_ShowSetDate(void)
 {
 	OLED_ShowNum(1, 3, Year, 2);
@@ -153,7 +163,7 @@ void Display_ShowSetDate(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾RTC½éÉÜ
+  *@brief æ˜¾ç¤ºRTCç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -167,7 +177,7 @@ void Display_ShowRTC(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾OLEDÒıµ¼
+  *@brief æ˜¾ç¤ºRTCè®¾ç½®å ä½ç¬¦
   *@param NULL
   *@retval NULL
   */
@@ -182,7 +192,7 @@ void Display_ShowRTCSetInc(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾RTCÉèÖÃ
+  *@brief æ˜¾ç¤ºRTCå½“å‰è®¾ç½®å¯¹è±¡
   *@param NULL
   *@retval NULL
   */
@@ -215,7 +225,7 @@ void Display_ShowRTCSet(void)
 }
 	
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾Ö÷Ò³Ãæ
+  *@brief æ˜¾ç¤ºä¸»ç•Œé¢å ä½ç¬¦
   *@param NULL
   *@retval NULL
   */
@@ -232,7 +242,7 @@ void Display_ShowMainMenu(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDË¢ĞÂÎÂÊª¶ÈÊı¾İ
+  *@brief æ˜¾ç¤ºæ¸©æ¹¿åº¦
   *@param NULL
   *@retval NULL
   */
@@ -243,7 +253,7 @@ void Display_ShowDHT(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDË§ĞÂÑÌÎíÊı¾İ
+  *@brief æ˜¾ç¤ºçƒŸé›¾æ•°æ®
   *@param NULL
   *@retval NULL
   */
@@ -253,7 +263,7 @@ void Display_ShowSmog(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDË¢ĞÂ¹âÕÕÊı¾İ
+  *@brief æ˜¾ç¤ºå…‰ç…§æ•°æ®
   *@param NULL
   *@retval NULL
   */
@@ -263,7 +273,7 @@ void Display_ShowLight(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÃÜÂëÕıÈ·
+  *@brief æ˜¾ç¤ºè®¤è¯æˆåŠŸ
   *@param NULL
   *@retval NULL
   */
@@ -274,7 +284,7 @@ void Display_ShowOK(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÊäÈëÃÜÂë½çÃæUI
+  *@brief æ˜¾ç¤ºè¾“å…¥å¼•å¯¼
   *@param NULL
   *@retval NULL
   */
@@ -288,7 +298,7 @@ void Display_InputInt(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÊµÊ±ÏÔÊ¾ÊäÈëµÄÃÜÂë
+  *@brief æ˜¾ç¤ºè¾“å…¥çš„å­—ç¬¦
   *@param NULL
   *@retval NULL
   */
@@ -299,16 +309,16 @@ void Display_ShowInput(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾¿ªËøºóµÄUI
+  *@brief æ˜¾ç¤ºå¼€é”çŠ¶æ€
   *@param NULL
   *@retval NULL
   */
 void Display_ShowOpen(void)
 {
 	OLED_Clear();
-	OLED_ShowString(1, 1, "Already Open");
-	HAL_Delay(500);
-	OLED_Clear();
+	// OLED_ShowString(1, 1, "Already Open");
+	// HAL_Delay(500);
+	// OLED_Clear();
 	OLED_ShowString(1, 1, "12 To Control");
 	OLED_ShowString(2, 1, "13 To Select");
 	OLED_ShowString(3, 1, "14 To Change");
@@ -316,7 +326,7 @@ void Display_ShowOpen(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾¿ØÖÆUI
+  *@brief æ˜¾ç¤ºæ§åˆ¶ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -330,7 +340,7 @@ void Display_ShowControl(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÎÂ¶ÈãĞÖµÉèÖÃ
+  *@brief æ˜¾ç¤ºæ¸©åº¦æŠ¥è­¦é˜ˆå€¼
   *@param NULL
   *@retval NULL
   */
@@ -342,7 +352,7 @@ void Display_ShowTemAla(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÎÂ¶ÈãĞÖµ
+  *@brief æ˜¾ç¤ºæ¸©åº¦é˜ˆå€¼
   *@param NULL
   *@retval NULL
   */
@@ -352,7 +362,7 @@ void Display_ShowTem(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾Êª¶ÈãĞÖµÉèÖÃ
+  *@brief æ˜¾ç¤ºæ¹¿åº¦æŠ¥è­¦é˜ˆå€¼
   *@param NULL
   *@retval NULL
   */
@@ -364,7 +374,7 @@ void Display_ShowHumAla(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾Êª¶ÈãĞÖµ
+  *@brief æ˜¾ç¤ºæ¹¿åº¦é˜ˆå€¼
   *@param NULL
   *@retval NULL
   */
@@ -374,7 +384,7 @@ void Display_ShowHum(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÑÌÎíãĞÖµÉèÖÃ
+  *@brief æ˜¾ç¤ºçƒŸé›¾æŠ¥è­¦é˜ˆå€¼
   *@param NULL
   *@retval NULL
   */
@@ -386,7 +396,7 @@ void Display_ShowSmogAla(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÑÌÎíãĞÖµ
+  *@brief æ˜¾ç¤ºçƒŸé›¾é˜ˆå€¼
   *@param NULL
   *@retval NULL
   */
@@ -396,7 +406,7 @@ void Display_ShowSmo(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾LEDÁÁ¶ÈÉèÖÃ
+  *@brief æ˜¾ç¤ºLEDäº®åº¦è®¾ç½®ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -408,7 +418,7 @@ void Display_ShowLEDSet(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾LEDÁÁ¶È
+  *@brief æ˜¾ç¤ºLEDäº®åº¦
   *@param NULL
   *@retval NULL
   */
@@ -418,7 +428,7 @@ void Display_ShowLED(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾·çÉÈÎÂ¿ØÉèÖÃ
+  *@brief æ˜¾ç¤ºé£æ‰‡å¼€å¯æ¸©åº¦è®¾ç½®ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -430,7 +440,7 @@ void Display_ShowOnTem(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾·çÉÈ¿ªÆôÎÂ¶È
+  *@brief æ˜¾ç¤ºé£æ‰‡å¼€å¯æ¸©åº¦
   *@param NULL
   *@retval NULL
   */
@@ -440,7 +450,7 @@ void Display_ShowMoOn(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾·çÉÈ×î´óÎÂ¶ÈÉèÖÃ
+  *@brief æ˜¾ç¤ºé£æ‰‡å…¨é€Ÿæ¸©åº¦è®¾ç½®ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -452,7 +462,7 @@ void Display_ShowMaxTem(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾·çÉÈ×î´óÎÂ¶È
+  *@brief æ˜¾ç¤ºé£æ‰‡å…¨é€Ÿæ¸©åº¦
   *@param NULL
   *@retval NULL
   */
@@ -462,7 +472,7 @@ void Display_ShowMoOff(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÉèÖÃ½çÃæ
+  *@brief æ˜¾ç¤ºè®¾ç½®ç•Œé¢ï¼Œæ ¹æ®Control_Modeæ˜¾ç¤ºä¸åŒçš„è®¾ç½®ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -493,7 +503,7 @@ void Display_ShowSet(void)
 
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾¸ü¸ÄÃÜÂë½çÃæµÄUI
+  *@brief æ˜¾ç¤ºå¯†ç ä¿®æ”¹å¼•å¯¼
   *@param NULL
   *@retval NULL
   */
@@ -506,7 +516,7 @@ void Display_ChaInt(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÊµÊ±ÏÔÊ¾¸ü¸ÄµÄÃÜÂë
+  *@brief æ˜¾ç¤ºå¯†ç ä¿®æ”¹ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -517,7 +527,7 @@ void Display_ShowChaPwd(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾Òıµ¼viewµÄ½çÃæ
+  *@brief æ˜¾ç¤ºå¯†ç è®°å½•å¼•å¯¼
   *@param NULL
   *@retval NULL
   */
@@ -528,10 +538,10 @@ void Display_ViewInt(void)
 }
 
 /**
-  *@brief ¶ÁÈ¡ÀúÊ·ÃÜÂë
+  *@brief è¯»å–å†å²è®°å½•åˆ°ç¼“å­˜æ•°ç»„
   *@param NULL
-  *@retval -1 ÀúÊ·¼ÇÂ¼Îª¿Õ
-  *         1 ³É¹¦
+  *@retval -1 å·²ç»è¯»å–è¿‡äº†
+  *         1  æˆåŠŸè¯»å–è®°å½•
   */
 int8_t Display_ReadView(void)
 {
@@ -600,7 +610,7 @@ int8_t Display_ReadView(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÀúÊ·ÃÜÂë¼ÇÂ¼ ¿É·­Ò³
+  *@brief æ˜¾ç¤ºå¯†ç è®°å½•ç•Œé¢ï¼Œæœ€å¤šæ˜¾ç¤º3æ¡è®°å½•ï¼Œè¶…è¿‡3æ¡è®°å½•æ—¶ç¿»é¡µæ˜¾ç¤º
   *@param NULL
   *@retval NULL
   */
@@ -645,7 +655,7 @@ void Display_ShowHistory(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾Òıµ¼ÃÜÂëÑ¡ÔñµÄº¯Êı
+  *@brief æ˜¾ç¤ºé€‰æ‹©ç•Œé¢å¼•å¯¼
   *@param NULL
   *@retval NULL
   */
@@ -656,7 +666,7 @@ void Display_SelInt(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÃÜÂëÑ¡ÔñUI 
+  *@brief æ˜¾ç¤ºé€‰æ‹©ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -675,7 +685,7 @@ void Display_Showsel(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÃÜÂëÑ¡ÔñÊ§°Ü
+  *@brief æ˜¾ç¤ºé€‰æ‹©é”™è¯¯ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -686,7 +696,7 @@ void Display_ShowSelErr(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾³¤¶È´íÎó
+  *@brief æ˜¾ç¤ºé•¿åº¦é”™è¯¯ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -697,7 +707,7 @@ void Display_ShowLenErr(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾ÃÜÂë´íÎó
+  *@brief æ˜¾ç¤ºå¯†ç é”™è¯¯ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -708,7 +718,7 @@ void Display_ShowPwdErr(void)
 }
 
 /**
-  *@brief Í¨¹ıOLED ÏÔÊ¾´æ´¢ÃÜÂë´íÎó
+  *@brief æ˜¾ç¤ºå†…å­˜é”™è¯¯ç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -719,7 +729,7 @@ void Display_ShowMemErr(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾¸ü¸ÄÃÜÂë³É¹¦
+  *@brief æ˜¾ç¤ºå¯†ç ä¿®æ”¹æˆåŠŸç•Œé¢
   *@param NULL
   *@retval NULL
   */
@@ -731,7 +741,7 @@ void Display_ShowChaOK(void)
 }
 
 /**
-  *@brief Í¨¹ıOLEDÏÔÊ¾³¤¶È´íÎó
+  *@brief æ˜¾ç¤ºå¯†ç ä¿®æ”¹é”™è¯¯ç•Œé¢
   *@param NULL
   *@retval NULL
   */
