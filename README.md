@@ -3,13 +3,13 @@
 基于STM32F407VET6的智能门锁与环控系统，集成了密码验证、环境监测、RTC实时时钟、步进电机&舵机控制、串口通信、蓝牙控制、红外遥控、OLED显示、Flash存储等功能。
 > - **迭代记录**：由之前手搓的基于STM32F103C8T6标准库的[智能家居](https://github.com/Nahida-Robin/Smart-Environment)和[智能仓储](https://github.com/Nahida-Robin/The-intelligent-storage-system-based-on-STM32)合并而来
 > - **开发记录**：详细开发步骤、踩坑复盘、调试经验，请查阅 [Doc/STAGE.md](Doc/STAGE.md)（开发步骤）和 [Doc/HOLE.md](Doc/HOLE.md)（踩坑记录）。
-> - **操作指南**：[Doc/STEP.md](Doc/STEP.md)：从零上手指南（硬件连接、软件配置、功能验证）
+> - **操作指南**：[Doc/STEP.md](Doc/STEP.md)：从零上手指南（硬件连接、软件配置、功能验证）和[STRUCTURE.md](Doc/STRUCTURE.md)（工程、项目结构）
 
 🍃 *“成长是一场旅行，我们在旅途中遇见自己，也遇见更好的自己。”* — 纳西妲
 
 ## 😶‍🌫️项目概述
 
-本项目是基于STM32平台的智能门锁系统，同时集成了温湿度、烟雾、光照等环境参数的监测，具有完整的用户交互界面和多通信接口。
+本项目是基于STM32平台的智能门锁系统，同时集成了温湿度、烟雾、光照等环境参数的监测和多功能密码验证系统，具有完整的用户交互界面和多通信接口。
 
 ### 核心功能
 
@@ -91,126 +91,6 @@ static void IR_SendBit(uint8_t bit)
 - **代码复用**：相似功能采用相同设计模式，提高代码可维护性
 - **低耦合度**：底层驱动间互不干扰，对外接口二次封装，设置应用层调用
 
-## 🎨硬件架构
-
-### 主控芯片
-- **MCU**：STM32F407VET6(ARM Cortex-M4)
-- **时钟**： HSE 8MHz, LSE 32.768kHz (RTC时钟源)
-
-### 外设模块
-| 模块 | 型号/类型 | 接口 | 功能说明 |
-|------|-----------|------|----------|
-| 显示模块 | OLED SSD1306 | I2C (PB8/9) | 128×64图形显示 |
-| 输入模块 | 4×4自制矩阵键盘 | GPIO (PD0-7) | 用户密码输入 |
-| 电源模块 | 自制12V转5V&3.3V电压模块 | 3V3 GND | 提供稳定电压 |
-| 温湿度 | DHT11 | 单总线 (PB6) | 温度湿度采集 |
-| 烟雾检测 | MQ-2 | ADC (PA1) | 烟雾浓度检测 |
-| 光照检测 | 光敏电阻 | ADC (PC0) | 环境光照度 |
-| 存储芯片 | W25Q16 | SPI (PB0 PB3-5) | 2MB Flash存储 |
-| 蓝牙模块 | DXBT24 | USART2 (PA2/3) | 无线控制接口 |
-| 调试串口 | USART1 | USART1 (PA9/10) | 串口命令控制 |
-| 红外传感器 | 反射式红外 | GPIO (PA4) | 人体检测 |
-| 步进电机 | 28BYJ-48 | GPIO (PB12-15) | 门锁机械控制 |
-| 舵机 | SG90 | TIM4 PWM | 可选锁机构 |
-| 风扇 | PWM风扇 | TIM3 CH2 (PA7) | 温控风扇 |
-| LED灯 | PWM LED | TIM3 CH1 (PA6) | 可调亮度 |
-| 蜂鸣器 | 无源蜂鸣器 | GPIO (PC13) | 报警提示 |
-| 指示灯 | LED | GPIO (PB9) | 状态指示 |
-| 红外发送 | V1221 | TIM5 CH1 (PA0) | 预留 |
-| 红外接收 | V1222 | TIM8 CH1 (PC6) | 接收命令 |
-
-## 🏠工程结构
-
-```
-Merge/
-├── Core/                          # STM32 HAL库核心文件
-│   ├── Inc/                       # 头文件目录
-│   │   ├── main.h
-│   │   ├── TaskDriver.h           # 主任务驱动头文件
-│   │   ├── stm32f4xx_hal_conf.h   # HAL配置
-│   │   └── ...
-│   └── Src/                       # 源文件目录
-│       ├── main.c                 # 主程序入口
-│       ├── TaskDriver.c           # 主状态机驱动
-│       ├── system_stm32f4xx.c
-│       └── ...
-├── Drivers/                       # 驱动层
-│   ├── CMSIS/                     # ARM CMSIS核心
-│   ├── STM32F4xx_HAL_Driver/      # STM32 HAL驱动库
-│   └── Hardware/                  # 硬件驱动层
-│       ├── BlueTooth.c/.h         # 蓝牙通信
-│       ├── DataManage.c/.h        # Flash数据管理
-│       ├── Display.c/.h           # OLED显示驱动
-│       ├── Flash.c/.h             # W25Q16 Flash驱动
-│       ├── Matrix.c/.h            # 矩阵键盘
-│       ├── Motor.c/.h             # 风扇控制
-│       ├── OLED.c/.h              # OLED底层驱动
-│       ├── Password.c/.h          # 密码验证逻辑
-│       ├── PWM.c/.h               # PWM输出
-│       ├── RTCTime.c/.h           # RTC时间管理
-│       ├── SensorRead.c/.h        # 传感器数据采集
-│       ├── Serial.c/.h            # 串口通信
-│       ├── Servo.c/.h             # 舵机控制
-│       ├── StepMotor.c/.h         # 步进电机
-│       └── ...
-├── Doc/                           # 项目文档
-│   ├── Datasheet                  # 芯片和模块数据手册
-│   │   ├── stm32f407vet6          # 主控芯片的数据手册
-│   │   ├── DHT11                  # DHT11的原理图和手册
-│   │   ├── SG90                   # 舵机原理文档
-│   │   ├── W25Q16                 # Flash数据手册
-│   │   └── Power                  # 电源模块原理图和PCB
-│   ├── HOLE.md                    # 调试踩坑记录
-│   └── STEP.md                    # 开发步骤记录
-├── MDK-ARM/                       # Keil MDK工程文件
-│   ├── DebugConfig/ 
-│   ├── RTE/
-│   └── test.uvprojx               # 工程文件
-├── test.ioc                       # STM32CubeMX配置文件
-└── README.md                      # 本文档
-```
-
-## 🍥软件架构
-
-### 分层设计
-```
-应用层:   TaskDriver.c (状态机)  ← 用户交互逻辑
-          |    |
-驱动层:   Display.c     Password.c     SensorRead.c
-          |    |              |              |
-          └────┴──────────────┴──────────────┘
-硬件抽象: OLED.c    Matrix.c   DHT11.c    ADC采集
-          |    |       |          |          |
-硬件层:   SSD1306    矩阵键盘    DHT11    传感器
-```
-
-### 核心状态机
-
-```c
-typedef enum{
-	STATE_IDLE = 0,
-	STATE_MENU,
-	STATE_VERTIFY,
-	STATE_OPEN,
-	STATE_CHAPWD,
-	STATE_VIEW,
-	STATE_SEL,
-	STATE_CONT,
-	STATE_RTC
-}State_t;
-```
-
-| 状态 | 功能描述 | 显示内容 |
-|------|----------|----------|
-| `STATE_IDLE` | 待机界面 | 显示时间日期，等待输入 |
-| `STATE_MENU` | 主菜单 | 显示传感器数据，开锁统计 |
-| `STATE_VERTIFY` | 密码验证 | 输入密码，验证逻辑 |
-| `STATE_OPEN` | 开锁状态 | 操作选项菜单 |
-| `STATE_CHAPWD` | 修改密码 | 输入新密码 |
-| `STATE_VIEW` | 查看记录 | 历史开锁记录分页显示 |
-| `STATE_SEL` | 密码选择 | 选择不同的预设密码 |
-| `STATE_CONT` | 参数控制 | 调整环境阈值参数 |
-| `STATE_RTC` | 时间设置 | 设置RTC实时时钟 |
 
 ## 🍃相关文档
 
@@ -219,10 +99,11 @@ typedef enum{
 | **[HOLE.md](Doc/HOLE.md)** | 调试过程中遇到的 **16个典型问题** 与解决方案 | 硬件调试、软件bug、时序问题 |
 | **[STAGE.md](Doc/STAGE.md)** | 项目 **18个开发阶段** 的步骤复盘 | 架构设计、模块编写、集成测试 |
 | **[STEP.md](Doc/STEP.md)** | 工程 **快速上手** 指南 | 硬件连接、操作方式、功能验证 |
+| **[STRUCTURE.md](Doc/STRUCTURE.md)** |  **工程结构** 指南 | 工程结构、项目结构 |
 | **Datasheet/** | 所有芯片、模块的官方数据手册 | 引脚定义、通信协议、电气参数 |
 
 **建议**：
-1. 了解项目 → 阅读本README
+1. 了解项目 → 阅读本README和STRUCTURE.md
 2. 重现或调试 → 查阅HOLE.md避免踩坑
 3. 开发流程 → 阅读STAGE.md了解各阶段思路
 4. 快速上手 → 阅读STEP.md了解操作方式
@@ -250,8 +131,8 @@ typedef enum{
 
 ### 软件优化
 1. **逻辑优化** - 全部状态机化，用系统Tick驱动
-1. **FreeRTOS移植** - 多任务管理
-2. **LVGL界面优化** - 更美观的人机交互显示
+2. ~~ FreeRTOS移植 - 多任务管理 ~~
+3. **LVGL界面优化** - 更美观的人机交互显示
 
 ## 许可证
 
