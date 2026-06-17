@@ -4,6 +4,7 @@
 > - **迭代记录**：由之前手搓的基于STM32F103C8T6标准库的[智能家居](https://github.com/Nahida-Robin/Smart-Environment)和[智能仓储](https://github.com/Nahida-Robin/The-intelligent-storage-system-based-on-STM32)合并而来
 > - **开发记录**：详细开发步骤、踩坑复盘、调试经验，请查阅 [Doc/STAGE.md](Doc/STAGE.md)（开发步骤）和 [Doc/HOLE.md](Doc/HOLE.md)（踩坑记录）。
 > - **操作指南**：[Doc/STEP.md](Doc/STEP.md)：从零上手指南（硬件连接、软件配置、功能验证）和[STRUCTURE.md](Doc/STRUCTURE.md)（工程、项目结构）
+> - **分支提示**：本项目已完成裸机->FreeRTOS移植，可查看FreeRTOS分支
 
 🍃 *“成长是一场旅行，我们在旅途中遇见自己，也遇见更好的自己。”* — 纳西妲
 
