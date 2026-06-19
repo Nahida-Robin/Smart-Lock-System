@@ -260,7 +260,7 @@ void Flash_EraseChip(void)
   *@param sec_addr 扇区序号
   *@retval NULL
   */
-void Flash_EraseSector(uint16_t sec_addr)
+void Flash_EraseSector(uint32_t sec_addr)
 {
 	sec_addr *= SECTORBYTE;
 	Flash_EnableWrite();
