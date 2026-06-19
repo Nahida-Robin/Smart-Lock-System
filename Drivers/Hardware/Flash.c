@@ -7,6 +7,7 @@
 
 #include "stm32f4xx.h"                  // Device header
 #include "Delay.h"
+#include "cmsis_os.h"
 
 #define FLASH_ID 0xEF14
 #define FLASH_PIN GPIOB
@@ -113,6 +114,10 @@ void Flash_WriteSR(uint8_t sr)
 void Flash_WaitBusy(void)
 {
 	while((Flash_ReadSR() & 0x01) == 0x01);
+//	do
+//	{
+//		osDelay(1);
+//	}while((Flash_ReadSR() & 0x01) == 0x01);
 }
 
 /**
@@ -260,7 +265,7 @@ void Flash_EraseChip(void)
   *@param sec_addr 扇区编号
   *@retval NULL
   */
-void Flash_EraseSector(uint16_t sec_addr)
+void Flash_EraseSector(uint32_t sec_addr)
 {
 	sec_addr *= SECTORBYTE;
 	Flash_EnableWrite();

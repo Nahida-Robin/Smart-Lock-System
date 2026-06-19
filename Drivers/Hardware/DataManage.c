@@ -9,13 +9,17 @@
 #include "Flash.h"
 
 #define FLASH_WR_ADDR 0x004000
-#define FLASH_LEN_ADDR 0x006000 //~0x006002
-#define FLASH_UW_ADDR 0x008000 //~0x0081FF
-#define FLASH_PW_ADDR 0x012000 //~0x0121FF
-#define FLASH_TM_ADDR 0x010000 //~0x01007F
-#define FLASH_UW_NUM 8
-#define FLASH_PW_NUM 12
-#define FLASH_TM_NUM 10
+//#define FLASH_LEN_ADDR 0x006000 //~0x006002
+//#define FLASH_UW_ADDR 0x008000 //~0x0081FF
+//#define FLASH_PW_ADDR 0x012000 //~0x0121FF
+//#define FLASH_TM_ADDR 0x010000 //~0x01007F
+#define FLASH_LEN_ADDR 0x010000 //~0x006002
+#define FLASH_UW_ADDR 0x020000 //~0x0081FF
+#define FLASH_PW_ADDR 0x030000 //~0x0121FF
+#define FLASH_TM_ADDR 0x040000 //~0x01007F
+#define FLASH_UW_NUM 2
+#define FLASH_PW_NUM 3
+#define FLASH_TM_NUM 4
 #define UW_MAX_SIZE 512
 #define PW_MAX_SIZE 512
 #define TM_MAX_SIZE 128
@@ -41,6 +45,9 @@ void Data_Erase(void)
 	Flash_EraseSector(FLASH_TM_NUM);
 	uint8_t Len[6] = {0};
 	Flash_Write(Len, FLASH_LEN_ADDR, 6);
+			UWMemory_Index = 0;
+			PWMemory_Index = 0;
+			TMMemory_Index = 0;
 }
 
 /**

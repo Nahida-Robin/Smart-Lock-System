@@ -56,6 +56,7 @@ uint8_t Control_Mode = 0;
 uint8_t RTCSet_Mode = 0;
 uint8_t IR_LightState = 0;
 uint16_t IR_LightTime = 0;
+uint8_t Month_Day[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 SensorData_t g_SensorData = {0};
 
@@ -235,6 +236,8 @@ static void RTC_Increase(void)
 			if(Year >= 99){Year = 0;}
 			else{Year++;}
 			Display_ShowSetDate();
+			if(Year % 4 == 0 && Year % 100 != 0){Month_Day[1] = 29;}
+			else {Month_Day[1] = 28;}
 			break;
 		case 2:
 			if(Mon >= 12){Mon = 1;}
@@ -242,7 +245,7 @@ static void RTC_Increase(void)
 			Display_ShowSetDate();
 			break;
 		case 3:
-			if(Date >= 31){Date = 1;}
+			if(Date >= Month_Day[Mon - 1]){Date = 1;}
 			else{Date++;}
 			Display_ShowSetDate();
 			break;
@@ -282,6 +285,8 @@ static void RTC_Decrease(void)
 			if(Year <= 0){Year = 99;}
 			else{Year--;}
 			Display_ShowSetDate();
+			if(Year % 4 == 0 && Year % 100 != 0){Month_Day[1] = 29;}
+			else {Month_Day[1] = 28;}
 			break;
 		case 2:
 			if(Mon <= 1){Mon = 12;}
@@ -289,7 +294,7 @@ static void RTC_Decrease(void)
 			Display_ShowSetDate();
 			break;
 		case 3:
-			if(Date <= 1){Date = 31;}
+			if(Date <= 1){Date = Month_Day[Mon - 1];}
 			else{Date--;}
 			Display_ShowSetDate();
 			break;
@@ -564,9 +569,9 @@ void StartUI_Task(void *argument)
 							Display_ShowOpen();
 							break;
 						case 16:
-							Read_Flag = 0;
-							View_Flag = 0;
-							View_Index = 1;
+//							Read_Flag = 0;
+//							View_Flag = 0;
+//							View_Index = 1;
 							State = STATE_OPEN;
 							Display_ShowOpen();
 							break;

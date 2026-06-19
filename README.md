@@ -2,6 +2,7 @@
 
 基于STM32F407VET6的智能门锁与环控系统，**FreeRTOS 多任务版**。将裸机版的状态机拆分为5个独立 RTOS 任务，通过消息队列通信、互斥量保护共享资源，实现更好的实时性与模块隔离。
 
+> - **裸机版**：[Smart Lock System](../Smart%20Lock%20System/) — 状态机架构
 > - **RTOS 版**：基于 FreeRTOS的多任务架构
 > - **开发记录**：详细开发步骤、踩坑复盘、调试经验，请查阅 [Doc/STAGE.md](Doc/STAGE.md)（开发步骤）和 [Doc/HOLE.md](Doc/HOLE.md)（踩坑记录）。
 > - **操作指南**：[Doc/STEP.md](Doc/STEP.md)：从零上手指南（硬件连接、软件配置、功能验证）
