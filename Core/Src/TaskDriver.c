@@ -484,6 +484,7 @@ static void CHAPWD_Task()
 			Display_ShowChaPwd();
 		  return;
 		case 5://返回5说明修改成功
+			Data_Save();
 			Display_ShowChaOK();
 		  State = STATE_OPEN;
 		  Display_ShowOpen();
@@ -561,6 +562,7 @@ static void PWSEL_Task(void)
 			Display_Showsel();
 			break;
 		case 7://返回7说明选择成功，返回开锁状态
+			Data_Save();
 			State = STATE_OPEN;
 		  Display_ShowOpen();
 			break;

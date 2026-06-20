@@ -47,9 +47,9 @@ volatile uint8_t NewPassWord[PASSWORD_MAX_LENGTH] = {0};
 //volatile uint8_t TimeMemory[TIMEMEMORY_SIZE] = {0};
 
 uint8_t Password_Length = 8;
-static uint8_t Password1_Length = 8;
-static uint8_t Password2_Length = 8;
-static uint8_t Password3_Length = 6;
+uint8_t Password1_Length = 8;
+uint8_t Password2_Length = 8;
+uint8_t Password3_Length = 6;
 
 extern uint8_t PasswordMemory[PW_MAX_SIZE];
 extern uint8_t UserwordMemory[UW_MAX_SIZE];
@@ -66,7 +66,7 @@ uint8_t Password_Index = 0;
 uint8_t Vertify_State = 0;
 uint8_t Warnings = 0;
 uint8_t Succeses = 0;
-static uint8_t Password_Sel = 0;
+uint8_t Password_Sel = 0;
 
 /**
   *@brief 用户输入清空
@@ -127,7 +127,43 @@ static void NewPassword_Set()
 }
 
 /**
-  *@brief 密码选择切换
+  *@brief 密码更新到有效密码
+  *@param	Sel 密码序号 0-2
+  *@retval NULL
+  */
+void PW_Select(uint8_t sel)
+{
+				switch(sel)
+				{
+					case 0:
+						Password_Clear();
+						for(uint8_t i = 0; i < Password1_Length; i++)
+						{
+							Password[i] = Password1[i];
+						}	
+						Password_Length = Password1_Length;
+						break;
+					case 1:
+						Password_Clear();
+						for(uint8_t i = 0; i < Password2_Length; i++)
+						{
+							Password[i] = Password2[i];
+						}
+						Password_Length = Password2_Length;
+						break;
+					case 2:
+						Password_Clear();
+						for(uint8_t i = 0; i < Password3_Length; i++)
+						{
+							Password[i] = Password3[i];
+						}
+						Password_Length = Password3_Length;
+						break;
+				}	
+}
+
+/**
+  *@brief 有效密码切换
   *@param	NULL
   *@retval STEP_OK 1 成功
 	*        ERR     0 失败
@@ -146,35 +182,7 @@ int8_t Password_Select()
 		case 14:
 				Password_Sel++;
 				if(Password_Sel>2){Password_Sel = 0;}
-				switch(Password_Sel)
-				{
-					case 0:
-						Password_Clear();
-						for(uint8_t i = 0; i < Password1_Length; i++)
-						{
-							Password[i] = Password1[i];
-						}
-						Password_Length = Password1_Length;
-						return STEP_OK;
-					case 1:
-						Password_Clear();
-						for(uint8_t i = 0; i < Password2_Length; i++)
-						{
-							Password[i] = Password2[i];
-						}
-						Password_Length = Password2_Length;
-						return STEP_OK;
-					case 2:
-						Password_Clear();
-						for(uint8_t i = 0; i < Password3_Length; i++)
-						{
-							Password[i] = Password3[i];
-						}
-						Password_Length = Password3_Length;
-						return STEP_OK;
-					default:
-						return ERR;
-				}
+				PW_Select(Password_Sel);
 			case 16:
 				return STEP_RETURN;
 			default:

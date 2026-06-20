@@ -220,10 +220,11 @@ void Flash_WritePage(uint8_t *buf, uint32_t addr, uint16_t size)
 void Flash_Write_NoCheck(uint8_t *buf, uint32_t addr, uint16_t size)
 {
 //	uint16_t PageRemain = PAGEBYTE - size % PAGEBYTE;//当前页剩余大小
-	uint16_t PageRemain = 0;
-	if(size < PAGEBYTE)PageRemain = size;
-	else PageRemain = PAGEBYTE;
-	
+	// uint16_t PageRemain = 0;
+	// if(size < PAGEBYTE)PageRemain = size;
+	// else PageRemain = PAGEBYTE;
+	uint16_t PageRemain = PAGEBYTE - (addr % PAGEBYTE);
+	if(PageRemain > size) PageRemain = size;		
 	while(1)
 	{
 		Flash_WritePage(buf, addr, PageRemain);//写满当前页
