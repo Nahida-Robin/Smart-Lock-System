@@ -64,31 +64,31 @@ osThreadId_t HwControlTaskHandle;
 //UI任务
 const osThreadAttr_t UITask_attributes = {
   .name = "UITask",
-  .stack_size = 512 * 4,//嵌套最深，所以栈空间最大
+  .stack_size = 512,//嵌套最深，所以栈空间最大
   .priority = (osPriority_t) osPriorityNormal,
 };
 //按键任务
 const osThreadAttr_t KeyScanTask_attributes = {
   .name = "KeyScanTask",
-  .stack_size = 256 * 4,
+  .stack_size = 256,
   .priority = (osPriority_t) osPriorityAboveNormal,
 };
 //传感器任务
 const osThreadAttr_t SensorTask_attributes = {
   .name = "SensorTask",
-  .stack_size = 256 * 4,
+  .stack_size = 256,
   .priority = (osPriority_t) osPriorityLow,
 };
 //通信任务
 const osThreadAttr_t CommTask_attributes = {
   .name = "CommTask",
-  .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 256,
+  .priority = (osPriority_t) osPriorityLow,
 };
 //硬件任务
 const osThreadAttr_t HwControlTask_attributes = {
   .name = "HwControlTask",
-  .stack_size = 256 * 4,
+  .stack_size = 256,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* USER CODE END Variables */

@@ -47,9 +47,9 @@ volatile uint8_t NewPassWord[PASSWORD_MAX_LENGTH] = {0};
 //volatile uint8_t TimeMemory[TIMEMEMORY_SIZE] = {0};
 
 uint8_t Password_Length = 8;
-static uint8_t Password1_Length = 8;
-static uint8_t Password2_Length = 8;
-static uint8_t Password3_Length = 6;
+uint8_t Password1_Length = 8;
+uint8_t Password2_Length = 8;
+uint8_t Password3_Length = 6;
 
 extern uint8_t PasswordMemory[PW_MAX_SIZE];
 extern uint8_t UserwordMemory[UW_MAX_SIZE];
@@ -66,14 +66,14 @@ uint8_t Password_Index = 0;
 uint8_t Vertify_State = 0;
 uint8_t Warnings = 0;
 uint8_t Succeses = 0;
-static uint8_t Password_Sel = 0;
+uint8_t Password_Sel = 0;
 
 /**
   *@brief 用户密码清空
   *@param NULL
   *@retval NULL
   */
-static void Userword_Clear()
+static void Userword_Clear(void)
 {
 	for(uint8_t i = 0; i < PASSWORD_MAX_LENGTH; i++)
 	{
@@ -87,7 +87,7 @@ static void Userword_Clear()
   *@param NULL
   *@retval NULL
   */
-static void Password_Clear()
+static void Password_Clear(void)
 {
 	for(uint8_t i = 0; i <PASSWORD_MAX_LENGTH; i++)
 	{
@@ -100,7 +100,7 @@ static void Password_Clear()
   *@param NULL
   *@retval NULL
   */
-static void NewPassword_Clear()
+static void NewPassword_Clear(void)
 {
 	for(uint8_t i = 0; i < PASSWORD_MAX_LENGTH; i++)
 	{
@@ -114,7 +114,7 @@ static void NewPassword_Clear()
   *@param NULL
   *@retval NULL
   */
-static void NewPassword_Set()
+static void NewPassword_Set(void)
 {
 	Password_Clear();
 	
@@ -127,8 +127,44 @@ static void NewPassword_Set()
 }
 
 /**
+  *@brief 密码更新到有效密码
+  *@param	Sel 密码序号 0-2
+  *@retval NULL
+  */
+void PW_Select(uint8_t sel)
+{
+				switch(sel)
+				{
+					case 0:
+						Password_Clear();
+						for(uint8_t i = 0; i < Password1_Length; i++)
+						{
+							Password[i] = Password1[i];
+						}	
+						Password_Length = Password1_Length;
+						break;
+					case 1:
+						Password_Clear();
+						for(uint8_t i = 0; i < Password2_Length; i++)
+						{
+							Password[i] = Password2[i];
+						}
+						Password_Length = Password2_Length;
+						break;
+					case 2:
+						Password_Clear();
+						for(uint8_t i = 0; i < Password3_Length; i++)
+						{
+							Password[i] = Password3[i];
+						}
+						Password_Length = Password3_Length;
+						break;
+				}	
+}
+
+/**
   *@brief 有效密码切换
-  *@param	NULL
+  *@param	Key 传入的按键
   *@retval STEP_OK 1 成功
 	*        ERR     0 失败
 	*		 STEP_RETURN 6 返回上一级
@@ -145,36 +181,9 @@ int8_t Password_Select(uint8_t Key)
 				return RESELECT;
 		case 14:
 				Password_Sel++;
-				if(Password_Sel>2){Password_Sel = 0;}
-				switch(Password_Sel)
-				{
-					case 0:
-						Password_Clear();
-						for(uint8_t i = 0; i < Password1_Length; i++)
-						{
-							Password[i] = Password1[i];
-						}	
-						Password_Length = Password1_Length;
-						return STEP_OK;
-					case 1:
-						Password_Clear();
-						for(uint8_t i = 0; i < Password2_Length; i++)
-						{
-							Password[i] = Password2[i];
-						}
-						Password_Length = Password2_Length;
-						return STEP_OK;
-					case 2:
-						Password_Clear();
-						for(uint8_t i = 0; i < Password3_Length; i++)
-						{
-							Password[i] = Password3[i];
-						}
-						Password_Length = Password3_Length;
-						return STEP_OK;
-					default:
-						return ERR;
-				}
+				if(Password_Sel > 2){Password_Sel = 0;}
+				PW_Select(Password_Sel);
+				return STEP_OK;
 			case 16:
 				return STEP_RETURN;
 			default:
@@ -189,7 +198,7 @@ int8_t Password_Select(uint8_t Key)
   *@retval STEP_OK 1 成功
   *        ERR     0	失败	
   */
-static int8_t Password_Refresh()
+static int8_t Password_Refresh(void)
 {
 	switch(Password_Sel)
 	{
@@ -238,7 +247,7 @@ static int8_t Password_Refresh()
   *        ERR      0 当前密码为空
   *		   LEN_ERR -1 长度不对
   */
-static int8_t UserwordToMemory()
+static int8_t UserwordToMemory(void)
 {
 	if(Userword_Index == 0){return ERR;}
 	if(UWMemory_Index + Userword_Index + 1 > UW_MAX_SIZE){return LEN_ERR;}
@@ -256,7 +265,7 @@ static int8_t UserwordToMemory()
   *@retval ERR     0 存储失败
   *        STEP_OK 1 成功
   */
-static int8_t TimeToMemory()
+static int8_t TimeToMemory(void)
 {
 	uint8_t Hour = 0, Min = 0, Sec = 0;
 	uint8_t Year = 0, Mon = 0, Week = 0, Date = 0;
@@ -272,7 +281,7 @@ static int8_t TimeToMemory()
 
 /**
   *@brief 密码认证
-  *@param NULL
+  *@param Key 传入的按键
   *@retval STEP_OK  1 步骤成功
   *        PWD_OK   2 认证成功
   *        LEN_ERR -1 长度错误
@@ -380,7 +389,7 @@ int8_t Password_Vertify(uint8_t Key)
 
 /**
   *@brief 修改密码
-  *@param NULL
+  *@param Key 传入的按键
   *@retval STEP_OK     1 步骤成功
   *        CHA_OK      5 修改成功
   *        LEN_ERR    -1 长度错误	
@@ -458,7 +467,7 @@ int8_t Password_Change(uint8_t Key)
   *        ERR_SPE 4 错误三次以上特殊报警
   *        STEP_OK 1 无错误次数
   */
-uint8_t Open_Error()
+uint8_t Open_Error(void)
 {
 	if(Warnings == 1)
 	{

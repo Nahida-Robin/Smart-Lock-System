@@ -375,12 +375,14 @@ void StartUI_Task(void *argument)
 {
 	for(;;)
 	{
-		// SensorData_t recvData;
-		// if(osMessageQueueGet(SensorDataQueueHandle, &recvData, NULL, 0) == osOK)
-		// {
-		// 	g_SensorData = recvData;
-		// }
-
+//    static uint32_t lastPrint = 0;
+//    if(HAL_GetTick() - lastPrint > 1000)
+//    {
+//        lastPrint = HAL_GetTick();
+//        UBaseType_t stackHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+//        printf("UITask stack free: %d bytes\r\n", stackHighWaterMark * 4); 
+//    }
+		
 		osMutexAcquire(OLED_MutexHandle, osWaitForever);
 
 		switch(State)
@@ -518,6 +520,7 @@ void StartUI_Task(void *argument)
 							Display_ShowChaPwd();
 							break;
 						case 5:
+							Data_Save();
 							Display_ShowChaOK();
 							State = STATE_OPEN;
 							Display_ShowOpen();
@@ -591,6 +594,7 @@ void StartUI_Task(void *argument)
 							Display_Showsel();
 							break;
 						case 7:
+							Data_Save();
 							State = STATE_OPEN;
 							Display_ShowOpen();
 							break;

@@ -27,6 +27,8 @@ extern uint8_t Succeses;
 volatile uint8_t BlueTooth_Cmd_Ready = 0;
 uint8_t BlueTooth_Rx_Buf[BT_BUF_SIZE];
 uint8_t BlueTooth_Rx_Index = 0;
+uint8_t BlueTooth_UR_State = 0;
+uint32_t UR_State_Time = 0;
 
 extern uint8_t PasswordMemory[PW_MAX_SIZE];
 extern uint8_t UserwordMemory[UW_MAX_SIZE];
@@ -68,6 +70,13 @@ typedef struct{
 static void BlueTooth_Transmit(char *string)
 {
 	HAL_UART_Transmit(&huart2, (uint8_t *)string, strlen(string), 100);
+//    uint32_t start = HAL_GetTick();
+//    if(HAL_UART_GetState(&huart2) & HAL_UART_STATE_BUSY_TX)
+//    {
+////        if(HAL_GetTick() - start > 50) return;
+//        osDelay(1);
+//    }
+//	HAL_UART_Transmit_IT(&huart2, (uint8_t *)string, strlen(string));
 }
 
 /**
@@ -77,7 +86,7 @@ static void BlueTooth_Transmit(char *string)
   */
 static void BlueTooth_Printf(const char *format, ...)
 {
-    char buffer[128];
+		char buffer[128];
     va_list args;
     va_start(args, format);
     vsnprintf(buffer, sizeof(buffer), format, args);
@@ -324,6 +333,18 @@ void BlueTooth_ProcessCmd(void)
 {
 	if(BlueTooth_Cmd_Ready == 0){return;}
 	BlueTooth_Cmd_Ready = 0;
+	
+	if(HAL_GetTick() - UR_State_Time > 30000){BlueTooth_UR_State = 0;}
+	
+	if(strcmp((const char*)BlueTooth_Rx_Buf, "NAHIDA") == 0)
+	{
+		UR_State_Time = HAL_GetTick();
+		BlueTooth_UR_State = 1;
+		BlueTooth_Printf("[Vert]Vertify OK!");
+		return;
+	}
+	
+	if(BlueTooth_UR_State == 0){BlueTooth_Printf("[Err]Please Vetify Before CMD");return;}
 	
 	int value = 0;
 	
