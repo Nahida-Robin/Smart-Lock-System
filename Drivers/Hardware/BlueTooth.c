@@ -178,7 +178,7 @@ static void SetMotorMax(int value)
   */
 static void BlueTooth_ShowStatus(void)
 {
-	BlueTooth_Printf("[Status]Lock:%s Temp:%d.%d Humi:%d.%d Light:%d Smog:%dppm Unlockcnt:%d Warnings:%d", 
+	BlueTooth_Printf("[Status]Lock:%s Temp:%d.%d Humi:%d.%d Light:%d Smog:%dppm Unlockcnt:%d Warnings:%d\r\n", 
 					Vertify_State ? "Open" : "Close", 
 					g_SensorData.Temph, g_SensorData.Templ, g_SensorData.Humih, g_SensorData.Humil, g_SensorData.Light, (uint16_t)g_SensorData.Smog, Succeses, Warnings);
 }
@@ -195,7 +195,7 @@ static void BlueTooth_ShowRecord(void)
 		uint8_t Rec_Num = 0;
 		if(UWMemory_Index == 0 || TMMemory_Index == 0)
 		{
-			BlueTooth_Printf("[Error]No Records");
+			BlueTooth_Printf("[Error]No Records\r\n");
 			return;
 		}
 		BlueTooth_Printf("[Records]\r\n");
@@ -228,11 +228,11 @@ static void BlueTooth_LockClose(void)
 	{
 		extern void Lock_Close(void);
 		Lock_Close();
-		BlueTooth_Printf("[Lock]Lock Close");
+		BlueTooth_Printf("[Lock]Lock Close\r\n");
 	}
 	else
 	{
-		BlueTooth_Printf("[Lock]Already Close");
+		BlueTooth_Printf("[Lock]Already Close\r\n");
 	}
 }
 
@@ -247,11 +247,11 @@ static void BlueTooth_LockOpen(void)
 	{
 		extern void Lock_Open(void);
 		Lock_Open();
-		BlueTooth_Printf("[Lock]Lock Open");
+		BlueTooth_Printf("[Lock]Lock Open\r\n");
 	}
 	else
 	{
-		BlueTooth_Printf("[Lock]Already Open");
+		BlueTooth_Printf("[Lock]Already Open\r\n");
 	}
 }
 
@@ -340,11 +340,11 @@ void BlueTooth_ProcessCmd(void)
 	{
 		UR_State_Time = HAL_GetTick();
 		BlueTooth_UR_State = 1;
-		BlueTooth_Printf("[Vert]Vertify OK!");
+		BlueTooth_Printf("[Vert]Vertify OK!\r\n");
 		return;
 	}
 	
-	if(BlueTooth_UR_State == 0){BlueTooth_Printf("[Err]Please Vetify Before CMD");return;}
+	if(BlueTooth_UR_State == 0){BlueTooth_Printf("[Err]Please Vetify Before CMD\r\n");return;}
 	
 	int value = 0;
 	
