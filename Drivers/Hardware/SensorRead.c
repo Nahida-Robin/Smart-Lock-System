@@ -50,23 +50,23 @@ void SensorRead_Init(void)
 	Motor_Init();
 }
 
-/**
-  *@brief 中断回调，更新系统tick
-  *@param NULL
-  *@retval NULL
-  */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	//DHT定时读取已通过挂起态实现，不需要定时器定时读取
-	// if (htim->Instance == TIM2)
-	// {
-	// 	DHT_Ready = 1;
-	// }
-	if (htim->Instance == TIM14)
-	{
-		HAL_IncTick();
-	}
-}
+// /**
+//   *@brief 中断回调，更新系统tick
+//   *@param NULL
+//   *@retval NULL
+//   */
+// void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+// {
+// 	//DHT定时读取已通过挂起态实现，不需要定时器定时读取
+// 	// if (htim->Instance == TIM2)
+// 	// {
+// 	// 	DHT_Ready = 1;
+// 	// }
+// 	if (htim->Instance == TIM14)
+// 	{
+// 		HAL_IncTick();
+// 	}
+// }
 
 /**
   *@brief ADC搬运完成回调，设置ADC_Ready标志以供主循环读取

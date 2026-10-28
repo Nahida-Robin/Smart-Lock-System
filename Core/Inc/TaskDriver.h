@@ -29,5 +29,6 @@ void StartKeyScan_Task(void *argument);
 void StartSensor_Task(void *argument);
 void StartComm_Task(void *argument);
 void StartHwControl_Task(void *argument);
+void StartWDG_Task(void *argument);
 
 #endif

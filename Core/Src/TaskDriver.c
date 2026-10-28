@@ -24,6 +24,7 @@
 #include "RTCTime.h"
 #include "SensorRead.h"
 #include "TaskDriver.h"
+#include "WatchDog.h"
 
 #define IR_LIGHTHOLD 10
 
@@ -356,6 +357,7 @@ void StartKeyScan_Task(void *argument)
 
 	for(;;)
 	{
+		WDG_TaskFeed(WDG_KEYSCAN);
 		uint8_t key = Matrix_GetNum();
 		if(key != 0)
 		{
@@ -383,6 +385,8 @@ void StartUI_Task(void *argument)
 //        printf("UITask stack free: %d bytes\r\n", stackHighWaterMark * 4); 
 //    }
 		
+		WDG_TaskFeed(WDG_UI);
+
 		osMutexAcquire(OLED_MutexHandle, osWaitForever);
 
 		switch(State)
@@ -690,6 +694,8 @@ void StartSensor_Task(void *argument)
 	{
 		SensorData_t sensorData;
 
+		WDG_TaskFeed(WDG_SENSOR);
+
 		SensorRead_Run(&sensorData);
 
 		taskENTER_CRITICAL();
@@ -698,7 +704,13 @@ void StartSensor_Task(void *argument)
 
 		// osMessageQueuePut(SensorDataQueueHandle, &sensorData, 0, 0);
 
-		osDelay(2000);
+		// osDelay(2000);
+		//拆成四个500ms延时并喂小狗
+		for(uint8_t i = 0; i < 4; i++)
+		{
+			osDelay(500);
+			WDG_TaskFeed(WDG_SENSOR);
+		}
 	}
 }
 
@@ -711,11 +723,16 @@ void StartComm_Task(void *argument)
 {
 	for(;;)
 	{
-		osThreadFlagsWait(0x01, osFlagsWaitAny, osWaitForever);
-
-		Serial_ProcessCmd();
-		BlueTooth_ProcessCmd();
+		//不再死等，每500ms没接收到就喂一次小狗
+		uint32_t flag = osThreadFlagsWait(0x01, osFlagsWaitAny, 500);
+		if((flag & 0x01) == 0x01)
+		{
+			WDG_TaskFeed(WDG_COMM);
+			Serial_ProcessCmd();
+			BlueTooth_ProcessCmd();
+		}
 		// osDelay(50);
+		WDG_TaskFeed(WDG_COMM);
 	}
 }
 
@@ -728,6 +745,8 @@ void StartHwControl_Task(void *argument)
 {
 	for(;;)
 	{
+		WDG_TaskFeed(WDG_HWCTRL);
+
 		HwCtrlMsg_t msg;
 		if(osMessageQueueGet(HwCtrlQueueHandle, &msg, NULL, 0) == osOK)
 		{
@@ -744,6 +763,20 @@ void StartHwControl_Task(void *argument)
 		IR_LightControl();
 		osDelay(100);
 	}
+}
+
+/**
+  *@brief 看门狗监控任务 每100ms检查各任务喂小狗情况，全部正常才喂狗
+  *@param NULL
+  *@retval NULL
+  */
+void StartWDG_Task(void *argument)
+{
+	for(;;)
+	{
+		WDG_Check();
+		osDelay(WDG_CHECK_PERIOD);
+	}	
 }
 
 /**

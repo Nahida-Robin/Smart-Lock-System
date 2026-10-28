@@ -20,6 +20,7 @@
 - **数据存储**：外接 W25Q16 存储，保存正确密码、用户密码、操作记录、系统参数
 - **人机交互**：丰富人机交互功能，OLED 实时显示、蜂鸣器、红外传感器、LED 指示、多接口通信(串口、蓝牙)
 - **自动控制**：温控风扇、红外感应 LED 灯
+- **系统可靠性**：IWDG看门狗，通过分配给各个任务小狗，每个任务单独喂小狗并记录喂狗时间，有任务超时喂小狗则看门狗复位
 
 ## 🥇项目亮点
 
@@ -45,11 +46,19 @@ HwCtrlQueueHandle     = osMessageQueueNew(10, sizeof(uint8_t), NULL);
 OLED_MutexHandle = osMutexNew(NULL);
 
 // 任务通知
-osThreadFlagsWait(0x01, osFlagsWaitAny, osWaitForever);
+osThreadFlagsWait(0x01, osFlagsWaitAny, 500);
 
 // 总堆大小
 configTOTAL_HEAP_SIZE  = 15360
 ```
+
+### 3. IWDG 看门狗
+
+由于FreeRTOS时间片调度的特性，每个任务不能都喂IWDG看门狗，这样**只要有一个**任务没卡死就会一直喂狗，所以新开一个看门狗检查任务：
+
+- 分配给每个任务一个小狗，每个任务通过喂小狗来模拟喂狗过程，设定每个任务喂小狗的间隔为800ms，各任务必须在间隔内喂狗并记录喂狗时刻
+- 看门狗任务每100ms检查各小狗情况，若超过超时时间没有喂狗记录时间则不喂IWDG，等待IWDG超时复位，若均未超时则看门狗任务完成喂狗
+- 注册机制，未注册的任务不会被看门狗任务检查，防止误判而超时复位
 
 ## 🏠工程结构
 
